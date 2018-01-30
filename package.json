@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "webpack-dev-server",
-    "build:prod": "webpack --env.prod=true"
+    "build:prod": "webpack --env.prod=true && cp src/.htaccess dist/"
   },
   "author": "ilya",
   "license": "MIT",
