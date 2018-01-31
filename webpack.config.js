@@ -9,7 +9,6 @@ let SRC_DIR = path.resolve(__dirname, 'src');
 let config = (env) => {
     let isProd = env ? env.prod === 'true' : false;
 
-    console.log('isProd: ', isProd);
     let extractSass = new ExtractTextPlugin({
         filename: "css/style.css",
         disable: !isProd
@@ -61,8 +60,9 @@ let config = (env) => {
         },
         plugins: plugins,
         devServer: {
-            // contentBase: DIST_DIR,
-            historyApiFallback: true
+            historyApiFallback: true,
+            disableHostCheck: true,
+            host: '0.0.0.0'
         }
     }
 };
