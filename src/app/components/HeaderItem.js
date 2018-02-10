@@ -18,7 +18,7 @@ export class HeaderItem extends React.Component {
         this.components = COMPONENTS;
         this.pages = PAGES;
         this.index = this.pages.indexOf(this.page);
-        this.onRouteOpened = props.onRouteOpened;
+        this.updateDocumentTitle = props.updateDocumentTitle;
 
         this.state = {
             isActive: this.path === window.location.pathname
@@ -26,6 +26,10 @@ export class HeaderItem extends React.Component {
     }
 
     componentWillUpdate() {
+        //to change page title if this component is active
+        if(this.path === window.location.pathname) {
+            this.updateDocumentTitle(this.page);
+        }
         this.saveRouteComponent();
     }
 
@@ -35,8 +39,8 @@ export class HeaderItem extends React.Component {
 
     saveRouteComponent() {
         if(this.state.isActive || this.path !== window.location.pathname) return;
+        //once opened route get 'isActive' state and its content will not removed when this route is deactivated
         this.setState({ isActive: true });
-        this.onRouteOpened(this.page);
     }
 
     render() {

@@ -1,5 +1,4 @@
 import React from 'react';
-import DocumentTitle from 'react-document-title';
 
 export class Content extends React.Component {
     constructor(props) {
@@ -9,11 +8,9 @@ export class Content extends React.Component {
 
     render() {
         return (
-            <DocumentTitle title={this.pageTitle}>
-                <div className="content">
-                    {this.props.children}
-                </div>
-            </DocumentTitle>
+            <div className="content">
+                {this.props.children}
+            </div>
         );
     }
 }
