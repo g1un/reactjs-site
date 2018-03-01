@@ -6,8 +6,7 @@ import { About } from './About';
 import { Works } from './Works';
 import { Contacts } from './Contacts';
 
-const COMPONENTS = [About, Works, Contacts];
-const PAGES = ['About', 'Works', 'Contacts'];
+import { PAGES, COMPONENTS } from './../constants';
 
 export class HeaderItem extends React.Component {
     constructor(props) {

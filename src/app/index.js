@@ -7,14 +7,9 @@ import style from './../scss/style.scss';
 
 import { Header } from './components/Header';
 import { HeaderItem } from './components/HeaderItem';
-import { About } from './components/About';
-import { Works } from './components/Works';
-import { Contacts } from './components/Contacts';
 import { NotFound } from './components/NotFound';
 
-const PATHS = ['/', '/works', '/contacts'];
-const PAGES = ['About', 'Works', 'Contacts'];
-const COMPONENTS = [About, Works, Contacts];
+import { PATHS, PAGES, COMPONENTS } from './constants'
 
 class App extends React.Component {
     constructor() {
@@ -56,7 +51,16 @@ class App extends React.Component {
                         </Switch>
                         <Header>
                             {this.paths.map((path, i) => {
-                                return <HeaderItem key={i} routePath={path} pageTitle={this.pages[i]} updateDocumentTitle={this.updateDocumentTitle.bind(this)}><Route exact path={path} component={this.components[i]}/></HeaderItem>;
+                                return (
+                                    <HeaderItem
+                                        key={i}
+                                        routePath={path}
+                                        pageTitle={this.pages[i]}
+                                        updateDocumentTitle={this.updateDocumentTitle.bind(this)}
+                                    >
+                                        <Route exact path={path} component={this.components[i]}/>
+                                    </HeaderItem>
+                                );
                             })}
                         </Header>
                         <Switch>
