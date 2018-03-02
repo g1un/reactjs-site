@@ -55,6 +55,10 @@ let config = (env) => {
                         // use style-loader in development
                         fallback: "style-loader"
                     })
+                },
+                {
+                    test: /\.css$/,
+                    use: [ 'style-loader', 'css-loader' ]
                 }
             ]
         },

@@ -1,4 +1,4 @@
-import { Admin } from './components/Admin';
+import { Admin } from './components/admin/Admin';
 import { About } from './components/About';
 import { Works } from './components/Works';
 import { Contacts } from './components/Contacts';

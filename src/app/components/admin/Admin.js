@@ -1,8 +1,9 @@
 import React from 'react';
 
 import Login from './Login';
+import AdminAbout from './AdminAbout';
 
-import CheckAuth from './../middleware/CheckAuth';
+import CheckAuth from '../../middleware/CheckAuth';
 
 export class Admin extends React.Component {
     constructor() {
@@ -24,9 +25,11 @@ export class Admin extends React.Component {
 
     render() {
         return (
-            <div className="admin">
+            <div className={'admin' + (this.state.isAuthorized !== true ? ' _ai-c' : '')}>
                 {this.state.isAuthorized === undefined ? 'Loading...' : ''}
-                {this.state.isAuthorized === true ? 'Authorized' : ''}
+                {this.state.isAuthorized === true &&
+                    <AdminAbout childClass="admin__item"/>
+                }
                 {this.state.isAuthorized === false ? <Login authorization={status => this.authorization(status)}/> : ''}
             </div>
         );

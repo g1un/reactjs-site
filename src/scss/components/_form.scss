@@ -1,0 +1,33 @@
+.form {
+
+    &__item {
+        margin: 0 auto;
+        display: block;
+        width: 100%;
+
+        &._textarea {
+            max-width: 100%;
+            width: 600px;
+        }
+
+        &._flex {
+            display: flex;
+            align-items: center;
+
+            .form {
+
+                &__textarea {
+                    flex: 1 1 auto;
+                }
+            }
+        }
+    }
+
+    &__button {
+        margin-top: 20px;
+
+        &._left {
+            margin: 0 0 0 20px;
+        }
+    }
+}

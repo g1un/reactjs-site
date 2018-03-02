@@ -1,6 +1,8 @@
 @import "../../node_modules/normalize.css/normalize";
 
 @import "components/general";
+@import "components/typography";
+@import "components/form";
 
 @import "components/container";
 
@@ -8,3 +10,7 @@
 @import "components/nav";
 @import "components/not-found";
 @import "components/content";
+
+@import "components/login";
+@import "components/admin";
+@import "components/admin-item";

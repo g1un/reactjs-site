@@ -1,0 +1,17 @@
+.admin {
+    padding: 20px 0;
+    min-height: 100%;
+    display: flex;
+    justify-content: center;
+
+    &._ai-c {
+        align-items: center;
+    }
+
+    &__item {
+
+        &:not(:last-child) {
+            border-bottom: 1px solid #000;
+        }
+    }
+}

@@ -3,7 +3,7 @@ import { render } from "react-dom";
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import DocumentTitle from 'react-document-title';
 
-import style from './../scss/style.scss';
+import './../scss/style.scss';
 
 import { Header } from './components/Header';
 import { HeaderItem } from './components/HeaderItem';
