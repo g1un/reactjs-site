@@ -2,9 +2,6 @@ import React from 'react';
 import { NavLink } from 'react-router-dom';
 
 import { Content } from './Content';
-import { About } from './About';
-import { Works } from './Works';
-import { Contacts } from './Contacts';
 
 import { PAGES, COMPONENTS } from './../constants';
 
@@ -24,7 +21,7 @@ export class HeaderItem extends React.Component {
         };
     }
 
-    componentWillUpdate() {
+    componentDidUpdate() {
         //to change page title if this component is active
         if(this.path === window.location.pathname) {
             this.updateDocumentTitle(this.page);
@@ -50,7 +47,13 @@ export class HeaderItem extends React.Component {
                         {this.page}
                     </NavLink>
                 </div>
-                {(this.isActive() || this.state.isActive) ? <div className="nav__content"><Content pageTitle={this.page}>{this.state.isActive ? React.createElement(this.components[this.index]) : this.content}</Content></div> : ''}
+                {(this.isActive() || this.state.isActive) &&
+                <div className="nav__content">
+                    <Content pageTitle={this.page}>
+                        {this.state.isActive ? React.createElement(this.components[this.index], { isActive: this.state.isActive }) : this.content}
+                    </Content>
+                </div>
+                }
             </div>
         );
     }

@@ -2,15 +2,21 @@
     padding: 20px 0;
     min-height: 100%;
     display: flex;
+    flex-direction: column;
     justify-content: center;
+    align-items: center;
 
     &._ai-c {
         align-items: center;
     }
 
     &__item {
+        max-width: 1024px;
+        width: 100%;
 
         &:not(:last-child) {
+            padding-bottom: 20px;
+            margin-bottom: 20px;
             border-bottom: 1px solid #000;
         }
     }

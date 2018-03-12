@@ -18,7 +18,6 @@ export default class CheckAuth {
         let xhr = new XMLHttpRequest();
         xhr.onload = this.resListener.bind(this, xhr);
         xhr.open("get", "http://localhost:3000/admin", true);
-        xhr.setRequestHeader('Content-Type', 'application/json');
         xhr.setRequestHeader('Authorization', `Bearer ${this.jwt}`);
         xhr.send();
     }
