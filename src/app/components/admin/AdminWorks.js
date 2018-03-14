@@ -34,18 +34,19 @@ export default class AdminWorks extends React.Component {
     }
 
     onWorksGot(works) {
+        let _works = works.length ? works : this.state.works;
         this.setState({
-            works: works.length ? works : this.state.works,
+            works: _works,
             worksLoading: false,
-            worksIndexes: works.map((work, i) => i)
+            worksIndexes: this.getWorksIndexes(_works)
         });
-        this.counterIndex = this.state.worksIndexes.length;
     }
 
-    onWorksChanged(i, paramObj) {
+    //handles input's changes from <Work/>
+    onWorkChanged(i, obj) {
         let newWorks = this.state.works.slice();
-        let _key = Object.keys(paramObj)[0];
-        let _value = paramObj[_key];
+        let _key = Object.keys(obj)[0];
+        let _value = obj[_key];
 
         newWorks[i][_key] = _value;
 
@@ -55,39 +56,51 @@ export default class AdminWorks extends React.Component {
     }
 
     addField() {
-        let newItems = this.state.works.slice();
-        newItems.push(JSON.parse(JSON.stringify(this.emptyWork)));
-
-        let newWorksIndexes = this.state.worksIndexes;
-        newWorksIndexes.push(this.indexCounter());
-
-        this.setState({
-            works: newItems,
-            worksIndexes: newWorksIndexes
-        });
+        this.addRemoveHandler();
     }
 
     deleteField(id) {
-        if(!confirm('Are you sure?')) return;
+        let dbId = this.state.works[id]._id;
+
+        if(dbId === '') {
+            this.addRemoveHandler(id);
+        } else {
+            if(!confirm('Are you sure?')) return;
+            new DeleteWork((msg) => {
+                console.log('delete result: ', msg);
+                this.addRemoveHandler(id);
+            }).send(dbId);
+        }
+    }
+
+    addRemoveHandler(id) {
         let newItems = this.state.works.slice();
-        newItems.splice(id, 1);
 
-        let newWorksIndexes = this.state.worksIndexes;
-        newWorksIndexes.splice(id, 1);
-
-        new DeleteWork((msg) => {console.log('delete result: ', msg)}).send(id);
+        if(id !== undefined) {
+            //remove
+            newItems.splice(id, 1);
+        } else {
+            //add
+            newItems.push(JSON.parse(JSON.stringify(this.emptyWork)));
+        }
 
         this.setState({
             works: newItems,
-            worksIndexes: newWorksIndexes
+            worksIndexes: this.getWorksIndexes(newItems, id)
         });
     }
 
     save(e, i) {
         this.state.works[i].index = i;
+        new UpdateWork(res => this.onWorksUpdated(res, i)).send(this.state.works[i]);
+    }
 
-        console.log('save: ', this.state.works[i]);
-        new UpdateWork(msg => this.onWorksUpdated(msg)).send(this.state.works[i]);
+    onWorksUpdated(res, i) {
+        let newItems = this.state.works.slice();
+        newItems[i]._id = res._id;
+        this.setState({
+            works: newItems
+        });
     }
 
     //creates unique keys each 'addField' action
@@ -95,8 +108,33 @@ export default class AdminWorks extends React.Component {
         return this.counterIndex++;
     }
 
-    onWorksUpdated(message) {
-        console.log('save result: ' + message);
+    getWorksIndexes(works, id) {
+        //set begin number for indexCounter that will produce indexes for new works
+        if(!this.counterIndex) {
+            this.counterIndex = works.length;
+        }
+
+        if(!this.state.worksIndexes) {
+            //after mount when no worksIndexes exists
+
+            //create worksIndexes array
+            return works.map((work, i) => i);
+        } else {
+            //if worksIndexes were already created
+
+            //create copy of existing worksIndexes
+            let newWorksIndexes = this.state.worksIndexes;
+
+            if(id !== undefined) {
+                //if id was passed, assuming it can only be from deleteField function
+                newWorksIndexes.splice(id, 1);
+            } else {
+                //if no id was passed, assumnig it is from addField function
+                newWorksIndexes.push(this.indexCounter());
+            }
+
+            return newWorksIndexes;
+        }
     }
 
     getContent() {
@@ -110,10 +148,11 @@ export default class AdminWorks extends React.Component {
                         <Work
                             data={item}
                             key={this.state.worksIndexes[i]}
+                            keyIndex={this.state.worksIndexes[i]}
                             index={i}
                             isOnlyField={this.state.works.length === 1}
                             deleteField={() => this.deleteField(i)}
-                            onWorksChanged={(obj) => this.onWorksChanged(i, obj)}
+                            onWorkChanged={(obj) => this.onWorkChanged(i, obj)}
                             save={(e) => this.save(e, i)}
                         />
                     )

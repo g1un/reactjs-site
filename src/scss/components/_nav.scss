@@ -34,11 +34,14 @@
         }
 
         &-wrapper {
+            position: relative;
+            z-index: 1;
             margin-bottom: -1px;
             width: 100%;
             padding: 5px;
             border-top: 1px solid #000;
             border-bottom: 1px solid #000;
+            background: #cecece;
             text-align: center;
         }
     }
@@ -65,5 +68,6 @@
         position: relative;
         text-align: center;
         flex: 1 1 auto;
+        background: #f4f4f4;
     }
 }

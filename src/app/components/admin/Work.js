@@ -25,7 +25,7 @@ export default class Work extends React.Component {
             isChanged: true
         });
 
-        this.props.onWorksChanged({ [_key]: _value });
+        this.props.onWorkChanged({ [_key]: _value });
 
         if(target.dataset.name === 'imageFile') {
             this.onImageChanged(target.files[0]);
@@ -60,6 +60,8 @@ export default class Work extends React.Component {
     render() {
         return (
             <form className="work works__item" onSubmit={e => this.save(e)}>
+                key: {this.props.keyIndex}<br/>
+                _id: {this.props.data._id}
                 <div className="form__row _flex">
                     <TextField
                         className="input form__input"

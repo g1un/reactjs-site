@@ -24,6 +24,7 @@ export class UpdateWork {
     }
 
     send(work) {
+        //@todo filter work from unnecessary properties
         let xhr = new XMLHttpRequest();
         xhr.onload = () => this.onWorksUpdated(xhr);
         xhr.open("post", "http://localhost:3000/admin/works", true);
@@ -37,7 +38,7 @@ export class UpdateWork {
     }
 
     onWorksUpdated(xhr) {
-        let message = JSON.parse(xhr.responseText).message;
+        let message = JSON.parse(xhr.responseText);
         this.onloadUpdate(message);
     }
 }
@@ -45,20 +46,19 @@ export class UpdateWork {
 export class DeleteWork {
     constructor(update) {
         this.jwt = localStorage.getItem('jwt');
-        this.onloadUpdate = update;
+        this.onloadDelete = update;
     }
 
     send(id) {
         let xhr = new XMLHttpRequest();
         xhr.onload = () => this.onWorksUpdated(xhr);
         xhr.open("delete", `http://localhost:3000/admin/works/${id}`, true);
-        xhr.setRequestHeader('Content-Type', 'application/json');
         xhr.setRequestHeader('Authorization', `Bearer ${this.jwt}`);
         xhr.send();
     }
 
     onWorksUpdated(xhr) {
         let message = JSON.parse(xhr.responseText).message;
-        this.onloadUpdate(message);
+        this.onloadDelete(message);
     }
 }
