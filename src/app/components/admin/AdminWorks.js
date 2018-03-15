@@ -16,7 +16,8 @@ export default class AdminWorks extends React.Component {
             index: '',
             address: '',
             repo: '',
-            desc: '',
+            descRu: '',
+            descEn: '',
             imageSrc: '',
             imageFile: ''
         };
@@ -91,13 +92,26 @@ export default class AdminWorks extends React.Component {
     }
 
     save(e, i) {
-        this.state.works[i].index = i;
+        let newItems = this.state.works.slice();
+
+        newItems[i].index = i;
+        newItems[i].status = 'loading';
+
+        this.setState({
+            works: newItems
+        });
+
         new UpdateWork(res => this.onWorksUpdated(res, i)).send(this.state.works[i]);
     }
 
     onWorksUpdated(res, i) {
         let newItems = this.state.works.slice();
-        newItems[i]._id = res._id;
+
+        newItems[i]._id = res.work._id;
+        newItems[i].imageSrc = res.work.imageSrc;
+        newItems[i].imageFile = '';
+        newItems[i].status = 'saved';
+
         this.setState({
             works: newItems
         });

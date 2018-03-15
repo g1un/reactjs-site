@@ -49,4 +49,27 @@
             display: none;
         }
     }
+
+    &__button {
+        display: flex;
+        align-items: center;
+    }
+
+    &__status {
+        margin-right: 20px;
+
+        &._saved {
+            animation: 1s work-status-saved 3s forwards;
+        }
+    }
+}
+
+@keyframes work-status-saved {
+    0% {
+        opacity: 1;
+    }
+
+    100% {
+        opacity: 0;
+    }
 }

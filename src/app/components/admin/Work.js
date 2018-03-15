@@ -6,13 +6,10 @@ import { Button } from 'rmwc/Button';
 import '@material/textfield/dist/mdc.textfield.min.css';
 import '@material/button/dist/mdc.button.min.css';
 
-const IMAGES_PATH = 'http://localhost:3000/';
-
 export default class Work extends React.Component {
     constructor(props) {
         super();
         this.state = {
-            imageSrc: props.data.imageSrc ? IMAGES_PATH + props.data.imageSrc : '',
             isChanged: false
         };
     }
@@ -36,8 +33,8 @@ export default class Work extends React.Component {
         let reader = new FileReader;
 
         reader.onload = e => {
+            this.props.onWorkChanged({imageSrc: e.target.result});
             this.setState({
-                imageSrc: e.target.result,
                 noImageAdded: false
             });
         };
@@ -48,7 +45,7 @@ export default class Work extends React.Component {
         e.preventDefault();
 
         //error message for empty image input
-        if(!this.state.imageSrc) {
+        if(!this.props.data.imageSrc) {
             this.setState({
                 noImageAdded: true
             })
@@ -80,23 +77,34 @@ export default class Work extends React.Component {
                     />
                 </div>
                 <div className="form__row">
-                    <label className={`work__image${this.state.noImageAdded ? ' _error' : this.state.imageSrc ? ' _has-image' : ''}`}>
+                    <label className={`work__image${this.state.noImageAdded ? ' _error' : this.props.data.imageSrc ? ' _has-image' : ''}`}>
                         <input
                             type="file"
-                            value={this.props.imageSrc}
+                            value=""
                             data-name="imageFile"
                             onChange={e => this.onWorkChanged(e)}
                         />
-                        <img src={this.state.imageSrc} alt=""/>
+                        <img src={this.props.data.imageSrc} alt=""/>
                     </label>
                 </div>
                 <div className="form__row">
                     <TextField
                         textarea
                         className="textarea form__textarea"
-                        label="Describe Work"
-                        value={this.props.data.desc}
-                        data-name="desc"
+                        label="Describe Work in Russian"
+                        value={this.props.data.descRu}
+                        data-name="descRu"
+                        onChange={e => this.onWorkChanged(e)}
+                        required
+                    />
+                </div>
+                <div className="form__row">
+                    <TextField
+                        textarea
+                        className="textarea form__textarea"
+                        label="Describe Work in English"
+                        value={this.props.data.descEn}
+                        data-name="descEn"
                         onChange={e => this.onWorkChanged(e)}
                         required
                     />
@@ -105,7 +113,14 @@ export default class Work extends React.Component {
                     {!this.props.isOnlyField &&
                     <Button type="button" className="button form__button" onClick={() => this.props.deleteField()}>Delete</Button>
                     }
-                    <Button raised type="submit" disabled={!this.state.isChanged}>Save</Button>
+                    <div className="work__button">
+                        {this.props.data.status &&
+                        <div className={`work__status${this.props.data.status === 'saved' ? ' _saved' : ''}`}>
+                            {this.props.data.status}
+                        </div>
+                        }
+                        <Button raised type="submit" disabled={!this.state.isChanged}>Save</Button>
+                    </div>
                 </div>
             </form>
         );

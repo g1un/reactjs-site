@@ -1,3 +1,5 @@
+const IMAGES_PATH = 'http://localhost:3000/';
+
 export class GetWorks {
     constructor(get) {
         this.onloadGet = get;
@@ -13,6 +15,14 @@ export class GetWorks {
 
     onWorksGot(xhr) {
         let works = JSON.parse(xhr.responseText);
+
+        if(IMAGES_PATH) {
+            works = works.map((work) => {
+                work.imageSrc = IMAGES_PATH + work.imageSrc;
+                return work;
+            });
+        }
+
         this.onloadGet(works);
     }
 }
@@ -32,13 +42,20 @@ export class UpdateWork {
 
         let formData = new FormData();
         Object.keys(work).map((item) => {
-            formData.append(item, work[item]);
+            if(item !== 'imageSrc') {
+                formData.append(item, work[item]);
+            }
         });
         xhr.send(formData);
     }
 
     onWorksUpdated(xhr) {
         let message = JSON.parse(xhr.responseText);
+
+        if(IMAGES_PATH) {
+            message.work.imageSrc = IMAGES_PATH + message.work.imageSrc;
+        }
+
         this.onloadUpdate(message);
     }
 }
