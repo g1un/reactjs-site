@@ -41,20 +41,35 @@ export class HeaderItem extends React.Component {
 
     render() {
         return (
-            <div className={"nav__item " + (this.isActive() ? "_active" : "")}>
-                <div className="nav__item-wrapper">
-                    <NavLink className="nav__link" exact activeClassName="_active" to={this.path}>
-                        {this.page}
-                    </NavLink>
+            this.page !== 'Admin'
+                ?
+                <div className={"nav__item " + (this.isActive() ? "_active" : "")}>
+                    <div className="nav__item-wrapper">
+                        <NavLink className="nav__link" exact activeClassName="_active" to={this.path}>
+                            {this.page}
+                        </NavLink>
+                    </div>
+                    {(this.isActive() || this.state.isActive) &&
+                    <div className="nav__content">
+                        <Content pageTitle={this.page}>
+                            {this.state.isActive ? React.createElement(this.components[this.index], { isActive: this.state.isActive }) : this.content}
+                        </Content>
+                    </div>
+                    }
                 </div>
-                {(this.isActive() || this.state.isActive) &&
-                <div className="nav__content">
-                    <Content pageTitle={this.page}>
-                        {this.state.isActive ? React.createElement(this.components[this.index], { isActive: this.state.isActive }) : this.content}
-                    </Content>
+                :
+                <div className="nav__item _active">
+                    <div className="nav__item-wrapper">
+                        <div className="nav__link _active">
+                            {this.page}
+                        </div>
+                    </div>
+                    <div className="nav__content">
+                        <Content pageTitle={this.page}>
+                            {this.content}
+                        </Content>
+                    </div>
                 </div>
-                }
-            </div>
         );
     }
 }

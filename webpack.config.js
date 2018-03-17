@@ -17,7 +17,13 @@ let config = (env) => {
     let plugins = [
         extractSass,
         new HtmlWebpackPlugin({
-            template: SRC_DIR + '/index.html'
+            template: SRC_DIR + '/index.html',
+            inject: false
+        }),
+        new HtmlWebpackPlugin({
+            filename: 'admin/index.html',
+            template: SRC_DIR + '/admin/index.html',
+            inject: false
         })
     ];
 
@@ -28,10 +34,13 @@ let config = (env) => {
     }
 
     return {
-        entry: SRC_DIR + '/app/index.js',
+        entry: {
+            app: SRC_DIR + '/app/index.js',
+            admin: SRC_DIR + '/app/admin/index.js'
+        },
         output: {
             path: DIST_DIR,
-            filename: 'bundle.js',
+            filename: '[name].js',
             publicPath: ''
         },
         module: {

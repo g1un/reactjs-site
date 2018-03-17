@@ -15,7 +15,7 @@ export class Admin extends React.Component {
     }
 
     componentDidMount() {
-        if(this.props.isActive) new CheckAuth(this.authorization.bind(this));
+        new CheckAuth(this.authorization.bind(this));
     }
 
     authorization(status) {

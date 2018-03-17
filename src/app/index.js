@@ -45,7 +45,7 @@ class App extends React.Component {
                     <div className="container">
                         <Switch>
                             {this.paths.map((path, i) => {
-                                return <Route key={i} exact path={path}/>;
+                                return <Route key={i} exact strict path={path}/>;
                             })}
                             <Route render={() => <NotFound text="Error 404"/>}/>
                         </Switch>
@@ -65,7 +65,7 @@ class App extends React.Component {
                         </Header>
                         <Switch>
                             {this.paths.map((path, i) => {
-                                return <Route key={i} exact path={path}/>;
+                                return <Route key={i} exact strict path={path}/>;
                             })}
                             <Route render={() => <NotFound text="Page not found"/>}/>
                         </Switch>
