@@ -34,6 +34,7 @@ let config = (env) => {
     }
 
     return {
+        // mode: 'development',
         entry: {
             app: SRC_DIR + '/app/index.js',
             admin: SRC_DIR + '/app/admin/index.js'
@@ -44,7 +45,7 @@ let config = (env) => {
             publicPath: ''
         },
         module: {
-            loaders: [
+            rules: [
                 {
                     test: /\.js$/,
                     include: SRC_DIR,
@@ -73,7 +74,13 @@ let config = (env) => {
         },
         plugins: plugins,
         devServer: {
-            historyApiFallback: true,
+            // historyApiFallback: true,
+            historyApiFallback: {
+                rewrites: [
+                    { from: /^\/$/, to: '/' },
+                    { from: /^\/admin\//, to: '/admin' }
+                ]
+            },
             disableHostCheck: true,
             host: '0.0.0.0'
         }

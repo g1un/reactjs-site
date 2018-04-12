@@ -3,17 +3,15 @@ import { NavLink } from 'react-router-dom';
 
 import { Content } from './Content';
 
-import { PAGES, COMPONENTS } from './../constants';
+import { COMPONENTS } from './../constants';
 
 export class HeaderItem extends React.Component {
     constructor(props) {
         super();
         this.path = props.routePath;
         this.content = props.children;
-        this.page = props.pageTitle;
         this.components = COMPONENTS;
-        this.pages = PAGES;
-        this.index = this.pages.indexOf(this.page);
+        this.index = props.pages.indexOf(props.pageTitle);
         this.updateDocumentTitle = props.updateDocumentTitle;
 
         this.state = {
@@ -24,7 +22,7 @@ export class HeaderItem extends React.Component {
     componentDidUpdate() {
         //to change page title if this component is active
         if(this.path === window.location.pathname) {
-            this.updateDocumentTitle(this.page);
+            this.updateDocumentTitle(this.props.pageTitle);
         }
         this.saveRouteComponent();
     }
@@ -41,17 +39,17 @@ export class HeaderItem extends React.Component {
 
     render() {
         return (
-            this.page !== 'Admin'
+            this.props.pageTitle !== 'Admin'
                 ?
                 <div className={"nav__item " + (this.isActive() ? "_active" : "")}>
                     <div className="nav__item-wrapper">
                         <NavLink className="nav__link" exact activeClassName="_active" to={this.path}>
-                            {this.page}
+                            {this.props.pageTitle}
                         </NavLink>
                     </div>
                     {(this.isActive() || this.state.isActive) &&
                     <div className="nav__content">
-                        <Content pageTitle={this.page}>
+                        <Content pageTitle={this.props.pageTitle}>
                             {this.state.isActive ? React.createElement(this.components[this.index], { isActive: this.state.isActive }) : this.content}
                         </Content>
                     </div>
@@ -61,13 +59,11 @@ export class HeaderItem extends React.Component {
                 <div className="nav__item _active">
                     <div className="nav__item-wrapper">
                         <div className="nav__link _active">
-                            {this.page}
+                            {this.props.pageTitle}
                         </div>
                     </div>
                     <div className="nav__content">
-                        <Content pageTitle={this.page}>
-                            {this.content}
-                        </Content>
+                        {this.content}
                     </div>
                 </div>
         );

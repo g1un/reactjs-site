@@ -106,7 +106,7 @@ export default class AdminAbout extends React.Component {
 
     render() {
         return (
-            <form className={this.childClass + " admin-item form clearfix"} onSubmit={e => this.save(e)}>
+            <form className="admin-item form clearfix" onSubmit={e => this.save(e)}>
                 <h2 className="txt-title-2">Skills</h2>
                 {this.getContent()}
                 {!this.state.skillsLoading &&
