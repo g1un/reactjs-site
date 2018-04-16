@@ -21,16 +21,16 @@ class App extends React.Component {
         this.lang = Lang.getLang();
         this.components = COMPONENTS;
         this.state = {
-            documentTitle: this.getDocumentTitle(Lang.getPages(Lang.getLang())),
+            documentTitle: this.getDocumentTitle(Lang.getPages()),
             lang: Lang.getLang(),
-            pages: Lang.getPages(Lang.getLang())
+            pages: Lang.getPages()
         };
     }
 
     updateDocumentTitle(pageTitle) {
         if(this.state.documentTitle === pageTitle) return;
         this.setState({
-            documentTitle: this.getDocumentTitle(Lang.getPages(Lang.getLang()))
+            documentTitle: this.getDocumentTitle(Lang.getPages())
         });
     }
 
@@ -44,13 +44,11 @@ class App extends React.Component {
     }
 
     toggleLang() {
-        let newLang = this.state.lang === 'ru' ? 'en' : 'ru';
-        let newPages = Lang.getPages(newLang);
+        Lang.toggleLang();
 
-        Lang.langToLocalStorage(newLang);
         this.setState({
-            lang: newLang,
-            pages: newPages
+            lang: Lang.getLang(),
+            pages: Lang.getPages()
         });
     }
 

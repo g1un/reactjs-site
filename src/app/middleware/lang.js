@@ -1,31 +1,40 @@
 import { PAGES } from '../constants';
 
 export default class Lang {
+    constructor() {
+        this.lang = this.getLang();
+    }
 
     static getLang() {
-        let lang = localStorage.getItem('lang');
-        if(lang) {
-            return lang;
+        this.lang = localStorage.getItem('lang');
+        if(this.lang) {
+            return this.lang;
         } else {
             this.getHtmlLang();
         }
     }
 
     static getHtmlLang() {
-        let lang = document.documentElement.lang;
-        localStorage.setItem('lang', lang);
+        this.lang = document.documentElement.lang;
+        this.langToLocalStorage();
 
-        return lang;
+        return this.lang;
     }
 
-    static langToLocalStorage(lang) {
-        localStorage.setItem('lang', lang);
+    static langToLocalStorage() {
+        localStorage.setItem('lang', this.lang);
     }
 
-    static getPages(lang) {
+    static toggleLang() {
+        this.lang = this.lang === 'en' ? 'ru' : 'en';
+
+        this.langToLocalStorage();
+    }
+
+    static getPages() {
         let enArr = Object.keys(PAGES);
 
-        if(lang === 'ru') {
+        if(this.lang === 'ru') {
             return enArr.map((item) => PAGES[item]);
         } else {
             return enArr;
