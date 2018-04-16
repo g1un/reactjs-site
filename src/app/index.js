@@ -74,7 +74,7 @@ class App extends React.Component {
                                         routePath={path}
                                         pageTitle={this.state.pages[i]}
                                         updateDocumentTitle={this.updateDocumentTitle.bind(this)}
-                                        pages={this.state.pages}
+                                        index={i}
                                     >
                                         <Route exact path={path} component={this.components[i]}/>
                                     </HeaderItem>

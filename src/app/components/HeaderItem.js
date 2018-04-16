@@ -11,7 +11,6 @@ export class HeaderItem extends React.Component {
         this.path = props.routePath;
         this.content = props.children;
         this.components = COMPONENTS;
-        this.index = props.pages.indexOf(props.pageTitle);
         this.updateDocumentTitle = props.updateDocumentTitle;
 
         this.state = {
@@ -50,7 +49,7 @@ export class HeaderItem extends React.Component {
                     {(this.isActive() || this.state.isActive) &&
                     <div className="nav__content">
                         <Content pageTitle={this.props.pageTitle}>
-                            {this.state.isActive ? React.createElement(this.components[this.index], { isActive: this.state.isActive }) : this.content}
+                            {this.state.isActive ? React.createElement(this.components[this.props.index], { isActive: this.state.isActive }) : this.content}
                         </Content>
                     </div>
                     }

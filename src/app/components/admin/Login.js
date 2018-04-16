@@ -1,10 +1,7 @@
 import React from 'react';
 
-import { TextField } from 'rmwc/TextField';
-import { Button } from 'rmwc/Button';
-
-import '@material/textfield/dist/mdc.textfield.min.css';
-import '@material/button/dist/mdc.button.min.css';
+import Button from 'material-ui-next/Button';
+import TextField from 'material-ui-next/TextField';
 
 export default class Signup extends React.Component {
     constructor(props) {
@@ -63,12 +60,30 @@ export default class Signup extends React.Component {
             <form className="login form" onSubmit={e => this.login(e)}>
                 <h2 className="txt-title-2">log in</h2>
                 <div className="form__item">
-                    <TextField className="form__input" label="email" name="email" id="email" value={this.state.email} onChange={e => this.getFormValue(e)}/>
+                    <TextField
+                        type="text"
+                        id="email"
+                        name="email"
+                        label="email"
+                        className="form__input"
+                        value={this.state.email}
+                        margin="normal"
+                        onChange={e => this.getFormValue(e)}
+                    />
                 </div>
                 <div className="form__item">
-                    <TextField type="password" className="form__input" label="password" name="password" id="password" value={this.state.password} onChange={e => this.getFormValue(e)}/>
+                    <TextField
+                        type="password"
+                        id="password"
+                        name="password"
+                        label="password"
+                        className="form__input"
+                        value={this.state.password}
+                        margin="normal"
+                        onChange={e => this.getFormValue(e)}
+                    />
                 </div>
-                <Button raised type="submit" className="form__button" id="login">sign up</Button>
+                <Button variant="raised" color="primary" type="submit" className="form__button" id="login">sign up</Button>
                 {this.state.error !== false &&
                     <div className="error">
                         Error: {this.state.error}

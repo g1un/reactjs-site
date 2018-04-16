@@ -4,8 +4,9 @@ import DocumentTitle from 'react-document-title';
 
 import '../../scss/style.scss';
 
-import { Admin } from '../components/admin/Admin';
+import Lang from '../middleware/lang';
 
+import { Admin } from '../components/admin/Admin';
 import { Header } from '../components/Header';
 import { HeaderItem } from '../components/HeaderItem';
 
@@ -19,7 +20,11 @@ class AdminIndex extends React.Component {
             <DocumentTitle title="Admin">
                 <div className="container">
                     <Header>
-                        <HeaderItem pageTitle='Admin'>
+                        <HeaderItem
+                            routePath="/admin"
+                            pageTitle="Admin"
+
+                        >
                             <Admin/>
                         </HeaderItem>
                     </Header>

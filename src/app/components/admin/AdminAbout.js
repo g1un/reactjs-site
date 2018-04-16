@@ -2,11 +2,8 @@ import React from 'react';
 
 import { getSkills, updateSkills } from '../../middleware/Skills';
 
-import { TextField } from 'rmwc/TextField';
-import { Button } from 'rmwc/Button';
-
-import '@material/textfield/dist/mdc.textfield.min.css';
-import '@material/button/dist/mdc.button.min.css';
+import Button from 'material-ui-next/Button';
+import TextField from 'material-ui-next/TextField';
 
 export default class AdminAbout extends React.Component {
     constructor(props) {
@@ -74,10 +71,11 @@ export default class AdminAbout extends React.Component {
             return (
                 <div className="form__item _flex _textarea">
                     <TextField
-                        textarea
-                        className="form__textarea"
+                        multiline
                         label="Write skill"
+                        className="form__textarea"
                         value=""
+                        margin="normal"
                         onChange={e => this.onSkillChanged(e, i)}
                     />
                 </div>
@@ -88,14 +86,23 @@ export default class AdminAbout extends React.Component {
                     return (
                         <div className="form__item _flex _textarea" key={i}>
                             <TextField
-                                textarea
-                                className="form__textarea"
+                                multiline
                                 label="Write skill"
+                                className="form__textarea"
                                 value={item}
+                                margin="normal"
                                 onChange={e => this.onSkillChanged(e, i)}
                             />
                             {this.state.skills.length > 1 &&
-                            <Button type="button" className="form__button _left" onClick={() => this.deleteField(i)}>Delete</Button>
+                            <Button
+                                variant="fab"
+                                mini
+                                type="button"
+                                className="form__button _left"
+                                onClick={() => this.deleteField(i)}
+                            >
+                                -
+                            </Button>
                             }
                         </div>
                     )
@@ -111,9 +118,17 @@ export default class AdminAbout extends React.Component {
                 {this.getContent()}
                 {!this.state.skillsLoading &&
                     <div className="admin-item__buttons">
-                        <Button stroked type="button" className="f-r" onClick={() => this.addField()}>Add</Button>
+                        <Button
+                            variant="fab"
+                            color="secondary"
+                            type="button"
+                            className="f-r"
+                            onClick={() => this.addField()}
+                        >
+                            +
+                        </Button>
                         <div className="admin-item__button cl-b">
-                            <Button raised type="submit">Save</Button>
+                            <Button variant="raised" color="primary" type="submit">Save</Button>
                         </div>
                     </div>
                 }

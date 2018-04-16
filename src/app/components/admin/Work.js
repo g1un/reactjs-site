@@ -1,10 +1,7 @@
 import React from 'react';
 
-import { TextField } from 'rmwc/TextField';
-import { Button } from 'rmwc/Button';
-
-import '@material/textfield/dist/mdc.textfield.min.css';
-import '@material/button/dist/mdc.button.min.css';
+import Button from 'material-ui-next/Button';
+import TextField from 'material-ui-next/TextField';
 
 export default class Work extends React.Component {
     constructor(props) {
@@ -15,8 +12,10 @@ export default class Work extends React.Component {
     }
 
     onWorkChanged({target}) {
-        let _key = target.dataset.name;
+        let _key = target.closest("[data-name]").dataset.name;
         let _value = _key !== 'imageFile' ? target.value : target.files[0];
+
+        console.log(_key);
 
         this.setState({
             isChanged: true
@@ -65,6 +64,7 @@ export default class Work extends React.Component {
                         label="Site Address"
                         value={this.props.data.address}
                         data-name="address"
+                        margin="normal"
                         onChange={e => this.onWorkChanged(e)}
                         required
                     />
@@ -73,6 +73,7 @@ export default class Work extends React.Component {
                         label="Repository Link"
                         value={this.props.data.repo}
                         data-name="repo"
+                        margin="normal"
                         onChange={e => this.onWorkChanged(e)}
                     />
                 </div>
@@ -89,22 +90,24 @@ export default class Work extends React.Component {
                 </div>
                 <div className="form__row">
                     <TextField
-                        textarea
+                        multiline
                         className="textarea form__textarea"
                         label="Describe Work in Russian"
                         value={this.props.data.descRu}
                         data-name="descRu"
+                        margin="normal"
                         onChange={e => this.onWorkChanged(e)}
                         required
                     />
                 </div>
                 <div className="form__row">
                     <TextField
-                        textarea
+                        multiline
                         className="textarea form__textarea"
                         label="Describe Work in English"
                         value={this.props.data.descEn}
                         data-name="descEn"
+                        margin="normal"
                         onChange={e => this.onWorkChanged(e)}
                         required
                     />
@@ -119,7 +122,7 @@ export default class Work extends React.Component {
                             {this.props.data.status}
                         </div>
                         }
-                        <Button raised type="submit" disabled={!this.state.isChanged}>Save</Button>
+                        <Button variant="raised" color="secondary" type="submit" disabled={!this.state.isChanged}>Save</Button>
                     </div>
                 </div>
             </form>

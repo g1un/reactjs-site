@@ -3,10 +3,7 @@ import React from 'react';
 import Work from './Work';
 import { GetWorks, UpdateWork, DeleteWork } from '../../middleware/Works';
 
-import { Button } from 'rmwc/Button';
-
-import '@material/textfield/dist/mdc.textfield.min.css';
-import '@material/button/dist/mdc.button.min.css';
+import Button from 'material-ui-next/Button';
 
 export default class AdminWorks extends React.Component {
     constructor() {
@@ -182,7 +179,15 @@ export default class AdminWorks extends React.Component {
                 {this.getContent()}
                 {!this.state.worksLoading &&
                 <div className="admin-item__buttons">
-                    <Button stroked type="button" className="f-r" onClick={() => this.addField()}>Add</Button>
+                    <Button
+                        variant="fab"
+                        color="secondary"
+                        type="button"
+                        className="f-r"
+                        onClick={() => this.addField()}
+                    >
+                        +
+                    </Button>
                 </div>
                 }
             </div>
