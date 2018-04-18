@@ -1,5 +1,7 @@
 import React from 'react';
 
+import Lang from '../middleware/lang';
+
 import Button from 'material-ui-next/Button';
 
 export class LangComponent extends React.Component {
@@ -10,7 +12,7 @@ export class LangComponent extends React.Component {
     render() {
         return(
             <Button size="small" className="lang" onClick={this.props.toggleLang}>
-                {this.props.lang}
+                {Lang.getLang() === 'en' ? 'ru' : 'en'}
             </Button>
         );
     }

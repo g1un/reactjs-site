@@ -12,7 +12,11 @@ export class getSkills {
     }
 
     onSkillsGot(xhr) {
-        let skills = JSON.parse(xhr.responseText)[0].skills;
+        let response = JSON.parse(xhr.responseText).response;
+        let skills = false;
+        if(response.length) {
+            skills = response[0].skills;
+        }
         this.onloadGet(skills);
     }
 }

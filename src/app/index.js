@@ -4,6 +4,7 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import DocumentTitle from 'react-document-title';
 
 import Lang from './middleware/lang';
+import DocTitle from './middleware/docTitle';
 
 import './../scss/style.scss';
 
@@ -21,7 +22,7 @@ class App extends React.Component {
         this.lang = Lang.getLang();
         this.components = COMPONENTS;
         this.state = {
-            documentTitle: this.getDocumentTitle(Lang.getPages()),
+            documentTitle: DocTitle.get(),
             lang: Lang.getLang(),
             pages: Lang.getPages()
         };
@@ -30,17 +31,8 @@ class App extends React.Component {
     updateDocumentTitle(pageTitle) {
         if(this.state.documentTitle === pageTitle) return;
         this.setState({
-            documentTitle: this.getDocumentTitle(Lang.getPages())
+            documentTitle: DocTitle.get()
         });
-    }
-
-    getDocumentTitle(pages) {
-        let pathIndex = this.paths.indexOf(window.location.pathname);
-        if(pathIndex === -1) {
-            return 'Not found';
-        } else {
-            return pages[pathIndex];
-        }
     }
 
     toggleLang() {
@@ -57,7 +49,7 @@ class App extends React.Component {
             <DocumentTitle title={this.state.documentTitle}>
                 <Router>
                     <div className="container">
-                        <LangComponent lang={this.state.lang} toggleLang={() => this.toggleLang()}/>
+                        <LangComponent toggleLang={() => this.toggleLang()}/>
                         <Switch>
                             {ALL_PATHS.map((path, i) => {
                                 return <Route key={i} exact strict path={path}/>;
@@ -71,7 +63,7 @@ class App extends React.Component {
                                         key={i}
                                         routePath={path}
                                         pageTitle={this.state.pages[i]}
-                                        updateDocumentTitle={this.updateDocumentTitle.bind(this)}
+                                        updateDocumentTitle={() => this.updateDocumentTitle(this.state.pages[i])}
                                         index={i}
                                     >
                                         <Route exact path={path} component={this.components[i]}/>

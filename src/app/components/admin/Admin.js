@@ -23,6 +23,10 @@ export class Admin extends React.Component {
         new CheckAuth(this.authorization.bind(this));
     }
 
+    componentDidUpdate() {
+        this.props.updateDocTitle();
+    }
+
     authorization(status) {
         this.setState({
             isAuthorized: status

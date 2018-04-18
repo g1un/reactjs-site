@@ -9,8 +9,12 @@ export default class AdminAbout extends React.Component {
     constructor(props) {
         super();
         this.childClass = props.childClass;
+        this.skillsTemplate = {
+            ru: [''],
+            en: ['']
+        };
         this.state = {
-            skills: [],
+            skills: JSON.parse(JSON.stringify(this.skillsTemplate)),
             skillsLoading: true
         };
     }
@@ -20,27 +24,35 @@ export default class AdminAbout extends React.Component {
     }
 
     onSkillsGot(skills) {
-        this.setState({
-            skills: skills,
-            skillsLoading: false
-        });
+        if(skills) {
+            this.setState({
+                skills: skills,
+                skillsLoading: false
+            });
+        } else {
+            this.setState({
+                skillsLoading: false
+            });
+        }
     }
 
     addField() {
-        let newItems = this.state.skills.slice();
-        newItems.push('');
+        let newSkills = JSON.parse(JSON.stringify(this.state.skills));
+        newSkills.ru.push('');
+        newSkills.en.push('');
 
         this.setState({
-            skills: newItems
+            skills: newSkills
         });
     }
 
     deleteField(id) {
-        let newItems = this.state.skills.slice();
-        newItems.splice(id, 1);
+        let newSkills = JSON.parse(JSON.stringify(this.state.skills));
+        newSkills.ru.splice(id, 1);
+        newSkills.en.splice(id, 1);
 
         this.setState({
-            skills: newItems
+            skills: newSkills
         });
     }
 
@@ -53,59 +65,53 @@ export default class AdminAbout extends React.Component {
         console.log('save result: ' + message);
     }
 
-    onSkillChanged({target}, i) {
-        let newItems = this.state.skills.slice();
-        newItems[i] = target.value;
+    onSkillChanged({target}, i, lang) {
+        let newSkills = JSON.parse(JSON.stringify(this.state.skills));
+        newSkills[lang][i] = target.value;
 
         this.setState({
-            skills: newItems
+            skills: newSkills
         });
-        console.log('skill changed!');
     }
 
     getContent() {
         let content;
         if(this.state.skillsLoading) {
             return 'Loading...';
-        } else if(this.state.skills.length < 1) {
-            return (
-                <div className="form__item _flex _textarea">
-                    <TextField
-                        multiline
-                        label="Write skill"
-                        className="form__textarea"
-                        value=""
-                        margin="normal"
-                        onChange={e => this.onSkillChanged(e, i)}
-                    />
-                </div>
-            );
         } else {
             return (
-                this.state.skills.map((item, i) => {
-                    return (
-                        <div className="form__item _flex _textarea" key={i}>
-                            <TextField
-                                multiline
-                                label="Write skill"
-                                className="form__textarea"
-                                value={item}
-                                margin="normal"
-                                onChange={e => this.onSkillChanged(e, i)}
-                            />
-                            {this.state.skills.length > 1 &&
+                this.state.skills.ru.map((item, i) => {
+                    return [
+                        <div className="admin-skill admin-skills__item clearfix" key={i}>
+                            <div className="admin-skill__inputs">
+                                <TextField
+                                    multiline
+                                    label="Write skill in russian"
+                                    className="form__textarea admin-skill__textarea"
+                                    value={this.state.skills.ru[i]}
+                                    margin="normal"
+                                    onChange={e => this.onSkillChanged(e, i, 'ru')}
+                                />
+                                <TextField
+                                    multiline
+                                    label="Write skill in english"
+                                    className="form__textarea admin-skill__textarea"
+                                    value={this.state.skills.en[i]}
+                                    margin="normal"
+                                    onChange={e => this.onSkillChanged(e, i, 'en')}
+                                />
+                            </div>
+                            {this.state.skills.ru.length > 1 &&
                             <Button
-                                variant="fab"
-                                mini
-                                type="button"
-                                className="form__button _left"
+                                variant="raised"
+                                className="form__button _left f-r"
                                 onClick={() => this.deleteField(i)}
                             >
-                                -
+                                delete
                             </Button>
                             }
                         </div>
-                    )
+                    ]
                 })
             );
         }
@@ -113,7 +119,7 @@ export default class AdminAbout extends React.Component {
 
     render() {
         return (
-            <form className="admin-item form clearfix" onSubmit={e => this.save(e)}>
+            <form className="admin-item form clearfix admin-skills" onSubmit={e => this.save(e)}>
                 <h2 className="txt-title-2">Skills</h2>
                 {this.getContent()}
                 {!this.state.skillsLoading &&

@@ -21,7 +21,7 @@ export class HeaderItem extends React.Component {
     componentDidUpdate() {
         //to change page title if this component is active
         if(this.path === window.location.pathname) {
-            this.updateDocumentTitle(this.props.pageTitle);
+            this.updateDocumentTitle();
         }
         this.saveRouteComponent();
     }
