@@ -3,7 +3,7 @@ import React from 'react';
 import Button from 'material-ui-next/Button';
 import TextField from 'material-ui-next/TextField';
 
-export default class Work extends React.Component {
+export default class AdminWork extends React.Component {
     constructor(props) {
         super();
         this.state = {
@@ -55,7 +55,7 @@ export default class Work extends React.Component {
 
     render() {
         return (
-            <form className="work works__item" onSubmit={e => this.save(e)}>
+            <form className="work-admin works-admin__item" onSubmit={e => this.save(e)}>
                 key: {this.props.keyIndex}<br/>
                 _id: {this.props.data._id}
                 <div className="form__row _flex">
@@ -78,7 +78,7 @@ export default class Work extends React.Component {
                     />
                 </div>
                 <div className="form__row">
-                    <label className={`work__image${this.state.noImageAdded ? ' _error' : this.props.data.imageSrc ? ' _has-image' : ''}`}>
+                    <label className={`work-admin__image${this.state.noImageAdded ? ' _error' : this.props.data.imageSrc ? ' _has-image' : ''}`}>
                         <input
                             type="file"
                             value=""
@@ -116,9 +116,9 @@ export default class Work extends React.Component {
                     {!this.props.isOnlyField &&
                     <Button type="button" className="button form__button" onClick={() => this.props.deleteField()}>Delete</Button>
                     }
-                    <div className="work__button">
+                    <div className="work-admin__button">
                         {this.props.data.status &&
-                        <div className={`work__status${this.props.data.status === 'saved' ? ' _saved' : ''}`}>
+                        <div className={`work-admin__status${this.props.data.status === 'saved' ? ' _saved' : ''}`}>
                             {this.props.data.status}
                         </div>
                         }

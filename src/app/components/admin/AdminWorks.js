@@ -1,6 +1,6 @@
 import React from 'react';
 
-import Work from './Work';
+import AdminWork from './AdminWork';
 import { GetWorks, UpdateWork, DeleteWork } from '../../middleware/Works';
 
 import Button from 'material-ui-next/Button';
@@ -156,7 +156,7 @@ export default class AdminWorks extends React.Component {
             return (
                 this.state.works.map((item, i) => {
                     return (
-                        <Work
+                        <AdminWork
                             data={item}
                             key={this.state.worksIndexes[i]}
                             keyIndex={this.state.worksIndexes[i]}
@@ -174,7 +174,7 @@ export default class AdminWorks extends React.Component {
 
     render() {
         return (
-            <div className={this.props.childClass + " admin-item works clearfix"}>
+            <div className={this.props.childClass + " admin-item works-admin clearfix"}>
                 <h2 className="txt-title-2">works</h2>
                 {this.getContent()}
                 {!this.state.worksLoading &&

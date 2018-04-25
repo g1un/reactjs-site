@@ -1,11 +1,70 @@
 import React from 'react';
 
+import Work from './Work';
+
+import { GetWorks } from '../middleware/Works';
+
 export class Works extends React.Component {
+    constructor() {
+        super();
+        this.emptyWork = {
+            _id: '',
+            index: '',
+            address: '',
+            repo: '',
+            descRu: '',
+            descEn: '',
+            imageSrc: '',
+            imageFile: ''
+        };
+        this.state = {
+            works: [
+                Object.assign({}, this.emptyWork)
+            ],
+            worksLoading: true
+        };
+    }
+
+    componentDidMount() {
+        //get works from server
+        new GetWorks(works => this.onWorksGot(works)).send();
+    }
+
+    onWorksGot(works) {
+        let _works = works.length ? works : this.state.works;
+        this.setState({
+            works: _works,
+            worksLoading: false
+        });
+    }
+
+    getContent() {
+        let content;
+        if(this.state.worksLoading) {
+            return 'Loading...';
+        } else {
+            return (
+                this.state.works.map((item, i) => {
+                    return (
+                        <Work
+                            data={item}
+                            key={i}
+                            lang={this.props.lang}
+                        />
+                    )
+                })
+            );
+        }
+    }
+
     render() {
         return (
-            <h1>
-                Works
-            </h1>
+            <div className="works">
+                <h1>
+                    {this.props.pageTitle}
+                </h1>
+                {this.getContent()}
+            </div>
         );
     }
 }
