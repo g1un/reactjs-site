@@ -3,7 +3,7 @@ import React from 'react';
 import { getSkills } from '../middleware/Skills';
 
 export class About extends React.Component {
-    constructor(props) {
+    constructor() {
         super();
         this.state = {
             skills: {
@@ -37,15 +37,15 @@ export class About extends React.Component {
     getContent() {
         if(this.state.skillsLoading) {
             return 'Loading...';
-        } else if(this.state.skills.ru.length < 1) {
+        } else if(this.state.skills[this.props.lang].length < 1) {
             return 'There are no skills yet';
         } else {
             return (
                 <ul className="skills__list">
-                    {this.state.skills.ru.map((item, i) => {
+                    {this.state.skills[this.props.lang].map((item, i) => {
                         return (
                             <li className="skills__item" key={i}>
-                                {this.state.skills.ru[i].split('\n').map((line, index) => {
+                                {this.state.skills[this.props.lang][i].split('\n').map((line, index) => {
                                     return (
                                         <span className="skills__line" key={index}>
                                             {line}
@@ -65,7 +65,7 @@ export class About extends React.Component {
         return (
             <div className="skills">
                 <h1 className="txt-title-2">
-                    About
+                    {this.props.pageTitle}
                 </h1>
                 {this.getContent()}
             </div>

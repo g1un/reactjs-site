@@ -65,8 +65,20 @@ class App extends React.Component {
                                         pageTitle={this.state.pages[i]}
                                         updateDocumentTitle={() => this.updateDocumentTitle(this.state.pages[i])}
                                         index={i}
+                                        lang={this.state.lang}
                                     >
-                                        <Route exact path={path} component={this.components[i]}/>
+                                        <Route
+                                            exact path={path}
+                                            component={() =>
+                                                React.createElement(
+                                                    this.components[i],
+                                                    {
+                                                        lang: this.state.lang,
+                                                        pageTitle: this.state.pages[i]
+                                                    }
+                                                )
+                                            }
+                                        />
                                     </HeaderItem>
                                 );
                             })}

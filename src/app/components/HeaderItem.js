@@ -14,7 +14,8 @@ export class HeaderItem extends React.Component {
         this.updateDocumentTitle = props.updateDocumentTitle;
 
         this.state = {
-            isActive: this.path === window.location.pathname
+            isActive: this.path === window.location.pathname,
+            lang: props.lang
         };
     }
 
@@ -49,7 +50,20 @@ export class HeaderItem extends React.Component {
                     {(this.isActive() || this.state.isActive) &&
                     <div className="nav__content">
                         <Content pageTitle={this.props.pageTitle}>
-                            {this.state.isActive ? React.createElement(this.components[this.props.index], { isActive: this.state.isActive }) : this.content}
+                            {
+                                this.state.isActive
+                                ?
+                                React.createElement(
+                                    this.components[this.props.index],
+                                    {
+                                        isActive: this.state.isActive,
+                                        lang: this.props.lang,
+                                        pageTitle: this.props.pageTitle
+                                    }
+                                )
+                                :
+                                this.content
+                            }
                         </Content>
                     </div>
                     }
