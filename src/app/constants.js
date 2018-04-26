@@ -80,8 +80,6 @@ export const ADMIN_COMPONENTS = [AdminSkills, AdminWorks, AdminContacts];
 export const HOST_NAME = 'http://localhost:3000/';
 
 export const CONTACTS_PARAMS = {
-    Email: 'Email',
-    Tel: 'Телефон',
-    CV: 'Резюме',
-    github: 'github'
+    ru: ['Email', 'Телефон', 'Резюме', 'Github'],
+    en: ['Email', 'Phone', 'CV', 'Github']
 };

@@ -1,0 +1,33 @@
+.contacts {
+    padding: 20px 0;
+    margin: 0 auto;
+    max-width: 1024px;
+
+    &__data {
+        margin: 0 auto;
+        display: table;
+        table-layout: fixed;
+        border-collapse: collapse;
+    }
+
+    &__row {
+        display: table-row;
+    }
+
+    &__key,
+    &__value {
+        padding: 5px;
+        display: table-cell;
+        vertical-align: middle;
+    }
+
+    &__key {
+        font-size: 18px;
+        font-weight: 700;
+        text-align: right;
+    }
+
+    &__value {
+        text-align: left;
+    }
+}
