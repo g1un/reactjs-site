@@ -3,6 +3,10 @@
     width: 100%;
     max-width: 768px;
 
+    &__buttons {
+        margin-top: 20px;
+    }
+
     &__button {
         display: block;
         margin: 0 auto;

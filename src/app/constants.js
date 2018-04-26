@@ -3,9 +3,10 @@ import { Works } from './components/Works';
 import { Contacts } from './components/Contacts';
 import AdminSkills from './components/admin/AdminAbout';
 import AdminWorks from './components/admin/AdminWorks';
+import AdminContacts from './components/admin/AdminContacts';
 
 export const PATHS = ['/', '/works', '/contacts'];
-export const ADMIN_PATHS = ['/admin/skills', '/admin/works'];
+export const ADMIN_PATHS = ['/admin/skills', '/admin/works', '/admin/contacts'];
 
 export const ALL_PATHS = ['/admin'].concat(PATHS, ADMIN_PATHS);
 
@@ -71,7 +72,16 @@ export const _PAGES_ARR = Object.keys(_PAGES);
 export const _PATHS_ARR = Object.keys(_PAGES).map((page) => _PAGES[page].path);
 
 
-export const ADMIN_PAGES = ['Skills', 'Works'];
+export const ADMIN_PAGES = ['Skills', 'Works', 'Contacts'];
 
 export const COMPONENTS = [About, Works, Contacts];
-export const ADMIN_COMPONENTS = [AdminSkills, AdminWorks];
+export const ADMIN_COMPONENTS = [AdminSkills, AdminWorks, AdminContacts];
+
+export const HOST_NAME = 'http://localhost:3000/';
+
+export const CONTACTS_PARAMS = {
+    Email: 'Email',
+    Tel: 'Телефон',
+    CV: 'Резюме',
+    github: 'github'
+};
