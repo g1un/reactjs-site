@@ -27,7 +27,7 @@ export class Works extends React.Component {
 
     componentDidMount() {
         //get works from server
-        new GetWorks(works => this.onWorksGot(works)).send();
+        if(this.props.isActive) new GetWorks(works => this.onWorksGot(works)).send();
     }
 
     onWorksGot(works) {
