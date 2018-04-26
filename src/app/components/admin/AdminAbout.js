@@ -5,6 +5,8 @@ import { getSkills, updateSkills } from '../../middleware/Skills';
 import Button from 'material-ui-next/Button';
 import TextField from 'material-ui-next/TextField';
 
+import Arrows from '../Arrows';
+
 export default class AdminAbout extends React.Component {
     constructor(props) {
         super();
@@ -56,6 +58,26 @@ export default class AdminAbout extends React.Component {
         });
     }
 
+    moveFields({target}, i) {
+        let _fields = {
+            ru: this.state.skills.ru[i],
+            en: this.state.skills.en[i]
+        };
+        let direction = target.closest('.js-arrow-button').dataset.direction;
+        let position = direction === 'up' ? (i - 1) : (i + 1);
+        let newSkills = JSON.parse(JSON.stringify(this.state.skills));
+
+        newSkills.ru.splice(i, 1);
+        newSkills.en.splice(i, 1);
+
+        newSkills.ru.splice(position, 0, _fields.ru);
+        newSkills.en.splice(position, 0, _fields.en);
+
+        this.setState({
+            skills: newSkills
+        });
+    }
+
     save(e) {
         e.preventDefault();
         new updateSkills(msg => this.onSkillsUpdated(msg)).send(this.state.skills);
@@ -101,15 +123,26 @@ export default class AdminAbout extends React.Component {
                                     onChange={e => this.onSkillChanged(e, i, 'en')}
                                 />
                             </div>
-                            {this.state.skills.ru.length > 1 &&
-                            <Button
-                                variant="raised"
-                                className="form__button _left f-r"
-                                onClick={() => this.deleteField(i)}
-                            >
-                                delete
-                            </Button>
-                            }
+                            <div className="form__buttons admin-skill__buttons">
+                                {this.state.skills.ru.length > 1 &&
+                                [
+                                    <Arrows
+                                        key="arrows"
+                                        first={i === 0}
+                                        last={i === (this.state.skills.ru.length - 1)}
+                                        moveFields={(e) => this.moveFields(e, i)}
+                                    />,
+                                    <Button
+                                        key="delete"
+                                        variant="raised"
+                                        className="form__button"
+                                        onClick={() => this.deleteField(i)}
+                                    >
+                                        delete
+                                    </Button>
+                                ]
+                                }
+                            </div>
                         </div>
                     ]
                 })

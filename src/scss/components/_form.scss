@@ -45,6 +45,7 @@
     &__buttons {
         display: flex;
         justify-content: flex-end;
+        align-items: flex-start;
 
         &._jc-sb {
             justify-content: space-between;
@@ -57,5 +58,10 @@
         &._left {
             margin: 0 0 0 20px;
         }
+    }
+
+    &__arrows {
+        flex: 1 1 auto;
+        text-align: left;
     }
 }
