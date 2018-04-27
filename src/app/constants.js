@@ -77,7 +77,7 @@ export const ADMIN_PAGES = ['Skills', 'Works', 'Contacts'];
 export const COMPONENTS = [About, Works, Contacts];
 export const ADMIN_COMPONENTS = [AdminSkills, AdminWorks, AdminContacts];
 
-export const HOST_NAME = 'http://localhost:3000';
+export const HOST_NAME = IS_PROD ? '' : 'http://localhost:3000';
 
 export const CONTACTS_PARAMS = {
     ru: ['Email', 'Телефон', 'Резюме', 'Github'],

@@ -11,7 +11,7 @@ let config = (env, argv) => {
 
     let plugins = [
         new webpack.DefinePlugin({
-            IS_PROD: JSON.stringify(true)
+            IS_PROD: JSON.stringify(isProd)
         }),
         new HtmlWebpackPlugin({
             template: SRC_DIR + '/index.html',
