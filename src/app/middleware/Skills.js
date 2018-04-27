@@ -1,3 +1,5 @@
+import { HOST_NAME } from '../constants';
+
 export class getSkills {
     constructor(get) {
         this.onloadGet = get;
@@ -6,7 +8,7 @@ export class getSkills {
     send() {
         let xhr = new XMLHttpRequest();
         xhr.onload = () => this.onSkillsGot(xhr);
-        xhr.open("get", "http://localhost:3000/admin/skills", true);
+        xhr.open("get", `${HOST_NAME}/admin/skills`, true);
         xhr.setRequestHeader('Content-Type', 'application/json');
         xhr.send();
     }
@@ -30,7 +32,7 @@ export class updateSkills {
     send(skills) {
         let xhr = new XMLHttpRequest();
         xhr.onload = () => this.onSkillsUpdated(xhr);
-        xhr.open("post", "http://localhost:3000/admin/skills", true);
+        xhr.open("post", `${HOST_NAME}/admin/skills`, true);
         xhr.setRequestHeader('Content-Type', 'application/json');
         xhr.setRequestHeader('Authorization', `Bearer ${this.jwt}`);
 

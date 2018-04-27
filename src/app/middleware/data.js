@@ -3,7 +3,7 @@ import { HOST_NAME } from '../constants';
 export class getData {
     constructor(route, get) {
         this.onloadGet = get;
-        this.route = HOST_NAME + route;
+        this.route = HOST_NAME + '/' + route;
     }
 
     send() {
@@ -28,7 +28,7 @@ export class updateData {
     constructor(route, update) {
         this.jwt = localStorage.getItem('jwt');
         this.onloadUpdate = update;
-        this.route = HOST_NAME + route;
+        this.route = HOST_NAME + '/' + route;
     }
 
     send(data) {

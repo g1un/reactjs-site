@@ -3,6 +3,8 @@ import React from 'react';
 import Button from 'material-ui-next/Button';
 import TextField from 'material-ui-next/TextField';
 
+import { HOST_NAME } from '../../constants';
+
 export default class Signup extends React.Component {
     constructor(props) {
         super();
@@ -36,7 +38,7 @@ export default class Signup extends React.Component {
     send() {
         let xhr = new XMLHttpRequest();
         xhr.onload = this.jwtToLocalStorage.bind(this, xhr);
-        xhr.open("post", "http://localhost:3000/user/login", true);
+        xhr.open("post", `${HOST_NAME}/user/login`, true);
         xhr.setRequestHeader('Content-Type', 'application/json');
         xhr.send(this.xhrBody);
     }

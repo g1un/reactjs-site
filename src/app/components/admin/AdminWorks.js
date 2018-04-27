@@ -95,7 +95,6 @@ export default class AdminWorks extends React.Component {
     }
 
     moveFields({target}, index) {
-        console.log(this.state.works);
         let direction = target.closest('.js-arrow-button').dataset.direction;
         let newIndex;
         let bodyArr;

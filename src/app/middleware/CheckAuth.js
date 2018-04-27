@@ -1,3 +1,5 @@
+import { HOST_NAME } from '../constants';
+
 export default class CheckAuth {
     constructor(authorization) {
         this.authorization = authorization;
@@ -17,7 +19,7 @@ export default class CheckAuth {
     send() {
         let xhr = new XMLHttpRequest();
         xhr.onload = this.resListener.bind(this, xhr);
-        xhr.open("get", "http://localhost:3000/admin", true);
+        xhr.open("get", `${HOST_NAME}/admin`, true);
         xhr.setRequestHeader('Authorization', `Bearer ${this.jwt}`);
         xhr.send();
     }
