@@ -128,6 +128,7 @@ export default class AdminAbout extends React.Component {
                                 [
                                     <Arrows
                                         key="arrows"
+                                        mini={true}
                                         first={i === 0}
                                         last={i === (this.state.skills.ru.length - 1)}
                                         moveFields={(e) => this.moveFields(e, i)}

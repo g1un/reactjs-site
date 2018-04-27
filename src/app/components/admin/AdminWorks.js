@@ -1,7 +1,7 @@
 import React from 'react';
 
 import AdminWork from './AdminWork';
-import { GetWorks, UpdateWork, DeleteWork } from '../../middleware/Works';
+import { GetWorks, UpdateWork, DeleteWork, UpdateWorkIndex } from '../../middleware/Works';
 
 import Button from 'material-ui-next/Button';
 
@@ -33,6 +33,7 @@ export default class AdminWorks extends React.Component {
 
     onWorksGot(works) {
         let _works = works.length ? works : this.state.works;
+        _works.sort((a, b) => a.index - b.index);
         this.setState({
             works: _works,
             worksLoading: false,
@@ -79,13 +80,43 @@ export default class AdminWorks extends React.Component {
             newItems.splice(id, 1);
         } else {
             //add
-            newItems.push(JSON.parse(JSON.stringify(this.emptyWork)));
+            //index for new not saved element. it should be the biggest to put this new element to the end of list
+            // each state change
+            let newIndex = Math.max.apply(null, this.state.works.map(obj => obj.index)) + 1;
+            let newItem = JSON.parse(JSON.stringify(this.emptyWork));
+            newItem.index = newIndex;
+            newItems.push(newItem);
         }
 
         this.setState({
             works: newItems,
             worksIndexes: this.getWorksIndexes(newItems, id)
         });
+    }
+
+    moveFields({target}, index) {
+        console.log(this.state.works);
+        let direction = target.closest('.js-arrow-button').dataset.direction;
+        let newIndex;
+        let bodyArr;
+        let newItems = JSON.parse(JSON.stringify(this.state.works));
+
+        if(direction === 'up') {
+            newIndex = index - 1;
+            bodyArr = [newItems[index]._id, newItems[newIndex]._id];
+        } else {
+            newIndex = index + 1;
+            bodyArr = [newItems[newIndex]._id, newItems[index]._id];
+        }
+
+        newItems[index].index = newIndex;
+        newItems[newIndex].index = index;
+
+        newItems.sort((a, b) => a.index - b.index);
+
+        new UpdateWorkIndex(
+            () => {this.setState({works: newItems});}
+        ).send(bodyArr);
     }
 
     save(e, i) {
@@ -148,6 +179,12 @@ export default class AdminWorks extends React.Component {
         }
     }
 
+    getSavedWorksLength() {
+        return this.state.works.filter(obj => {
+            return obj._id;
+        }).length;
+    }
+
     getContent() {
         let content;
         if(this.state.worksLoading) {
@@ -161,10 +198,12 @@ export default class AdminWorks extends React.Component {
                             key={this.state.worksIndexes[i]}
                             keyIndex={this.state.worksIndexes[i]}
                             index={i}
-                            isOnlyField={this.state.works.length === 1}
+                            worksLength={this.state.works.length}
+                            savedWorksLength={this.getSavedWorksLength()}
                             deleteField={() => this.deleteField(i)}
                             onWorkChanged={(obj) => this.onWorkChanged(i, obj)}
                             save={(e) => this.save(e, i)}
+                            moveFields={e => this.moveFields(e, i)}
                         />
                     )
                 })
@@ -185,6 +224,7 @@ export default class AdminWorks extends React.Component {
                         type="button"
                         className="f-r"
                         onClick={() => this.addField()}
+                        disabled={this.getSavedWorksLength() < this.state.works.length}
                     >
                         +
                     </Button>

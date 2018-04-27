@@ -2,9 +2,10 @@
 
     &._arrow {
 
-        .MuiButton-label-2 {
+        span {
             display: block;
             padding: 10px;
+            line-height: 0;
         }
     }
 }

@@ -3,6 +3,8 @@ import React from 'react';
 import Button from 'material-ui-next/Button';
 import TextField from 'material-ui-next/TextField';
 
+import Arrows from '../Arrows';
+
 export default class AdminWork extends React.Component {
     constructor(props) {
         super();
@@ -57,7 +59,8 @@ export default class AdminWork extends React.Component {
         return (
             <form className="work-admin works-admin__item" onSubmit={e => this.save(e)}>
                 key: {this.props.keyIndex}<br/>
-                _id: {this.props.data._id}
+                _id: {this.props.data._id}<br/>
+                index: {this.props.data.index}
                 <div className="form__row _flex">
                     <TextField
                         className="input form__input"
@@ -112,9 +115,25 @@ export default class AdminWork extends React.Component {
                         required
                     />
                 </div>
-                <div className={`form__buttons${!this.props.isOnlyField ? " _jc-sb" : ""}`}>
-                    {!this.props.isOnlyField &&
-                    <Button type="button" className="button form__button" onClick={() => this.props.deleteField()}>Delete</Button>
+                <div className={`form__buttons${this.props.worksLength > 1 ? " _jc-sb" : ""}`}>
+                    {this.props.worksLength > 1 &&
+                    [
+                        <Button
+                            key="delete"
+                            className="button form__button"
+                            onClick={() => this.props.deleteField()}
+                        >
+                            Delete
+                        </Button>,
+                        <Arrows
+                            key="arrows"
+                            mini={true}
+                            first={this.props.index === 0}
+                            last={this.props.index === (this.props.savedWorksLength - 1)}
+                            notSaved={!this.props.data._id}
+                            moveFields={e => this.props.moveFields(e)}
+                        />
+                    ]
                     }
                     <div className="work-admin__button">
                         {this.props.data.status &&

@@ -11,7 +11,7 @@ export default class Arrows extends React.Component {
     }
 
     isDisables(i) {
-        return ((i === 0 && this.props.first) || (i === 1 && this.props.last))
+        return ((i === 0 && this.props.first) || (i === 1 && this.props.last) || this.props.notSaved)
     }
 
     render() {
@@ -24,6 +24,7 @@ export default class Arrows extends React.Component {
                             data-direction={i === 0 ? 'up' : 'down'}
                             className="md-button arrows__item _arrow js-arrow-button"
                             variant="fab"
+                            mini={this.props.mini}
                             color="secondary"
                             disabled={this.isDisables(i)}
                             onClick={e => this.props.moveFields(e)}

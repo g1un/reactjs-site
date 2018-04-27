@@ -32,6 +32,7 @@ export class Works extends React.Component {
 
     onWorksGot(works) {
         let _works = works.length ? works : this.state.works;
+        _works.sort((a, b) => a.index - b.index);
         this.setState({
             works: _works,
             worksLoading: false

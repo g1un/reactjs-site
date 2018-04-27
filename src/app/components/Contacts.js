@@ -42,7 +42,6 @@ export class Contacts extends React.Component {
 
     getContent() {
         return this.dataKeys.map((item, i) => {
-            console.log(item);
             let _lang = this.props.lang;
             let _value = item === 'cv' ? this.state.data[item][_lang] : this.state.data[item];
             let _linkPrefix = '';

@@ -1,5 +1,7 @@
 const IMAGES_PATH = 'http://localhost:3000/';
 
+import { HOST_NAME } from '../constants';
+
 export class GetWorks {
     constructor(get) {
         this.onloadGet = get;
@@ -77,5 +79,33 @@ export class DeleteWork {
     onWorksUpdated(xhr) {
         let message = JSON.parse(xhr.responseText).message;
         this.onloadDelete(message);
+    }
+}
+
+export class UpdateWorkIndex {
+    constructor(update) {
+        this.jwt = localStorage.getItem('jwt');
+        this.onIndexesUpdated = update;
+    }
+
+    send([prev, next]) {
+        let xhr = new XMLHttpRequest();
+        xhr.onload = () => this.onWorksUpdated(xhr);
+        xhr.open("post", `${HOST_NAME}admin/works`, true);
+        xhr.setRequestHeader('Content-Type', 'application/json');
+        xhr.setRequestHeader('Authorization', `Bearer ${this.jwt}`);
+
+        let body = JSON.stringify({
+            changeIndexes: true,
+            prev: prev,
+            next: next
+        });
+
+        xhr.send(body);
+    }
+
+    onWorksUpdated(xhr) {
+        this.onIndexesUpdated();
+        console.log('Indexes changing result: ', JSON.parse(xhr.responseText));
     }
 }
