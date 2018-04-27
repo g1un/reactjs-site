@@ -15,6 +15,8 @@ import { LangComponent } from './components/Lang';
 
 import { PATHS, ALL_PATHS, COMPONENTS } from './constants'
 
+console.log('IS_PROD',IS_PROD);
+
 class App extends React.Component {
     constructor() {
         super();

@@ -1,21 +1,18 @@
 let webpack = require('webpack');
 let path  = require('path');
-let ExtractTextPlugin = require("extract-text-webpack-plugin");
 let HtmlWebpackPlugin = require('html-webpack-plugin');
+let autoprefixer = require('autoprefixer');
 
 let DIST_DIR = path.resolve(__dirname, 'dist');
 let SRC_DIR = path.resolve(__dirname, 'src');
 
-let config = (env) => {
-    let isProd = env ? env.prod === 'true' : false;
-
-    let extractSass = new ExtractTextPlugin({
-        filename: "css/style.css",
-        disable: !isProd
-    });
+let config = (env, argv) => {
+    let isProd = argv.mode === 'production';
 
     let plugins = [
-        extractSass,
+        new webpack.DefinePlugin({
+            IS_PROD: JSON.stringify(true)
+        }),
         new HtmlWebpackPlugin({
             template: SRC_DIR + '/index.html',
             inject: false
@@ -27,14 +24,7 @@ let config = (env) => {
         })
     ];
 
-    if(isProd) {
-        plugins.push(new webpack.optimize.UglifyJsPlugin({
-            minimize: true
-        }));
-    }
-
     return {
-        // mode: 'development',
         entry: {
             app: SRC_DIR + '/app/index.js',
             admin: SRC_DIR + '/app/admin/index.js'
@@ -55,16 +45,25 @@ let config = (env) => {
                     }
                 },
                 {
-                    test: /\.scss$/,
-                    use: extractSass.extract({
-                        use: [{
-                            loader: "css-loader"
-                        }, {
-                            loader: "sass-loader"
-                        }],
-                        // use style-loader in development
-                        fallback: "style-loader"
-                    })
+                    test: /\.(scss|css)$/,
+                    use: [
+                        "style-loader",
+                        {
+                            loader: "css-loader",
+                            options: {
+                                minimize: isProd
+                            }
+                        },
+                        {
+                            loader: 'postcss-loader',
+                            options: {
+                                plugins: function () {
+                                    return [autoprefixer('last 2 versions', 'ie 10')]
+                                }
+                            }
+                        },
+                        "sass-loader"
+                    ]
                 },
                 {
                     test: /\.css$/,
