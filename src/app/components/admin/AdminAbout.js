@@ -2,8 +2,9 @@ import React from 'react';
 
 import { getSkills, updateSkills } from '../../middleware/Skills';
 
-import Button from 'material-ui-next/Button';
-import TextField from 'material-ui-next/TextField';
+import Button from '@material-ui/core/Button';
+import Fab from '@material-ui/core/Fab';
+import TextField from '@material-ui/core/TextField';
 
 import Arrows from '../Arrows';
 
@@ -135,7 +136,7 @@ export default class AdminAbout extends React.Component {
                                     />,
                                     <Button
                                         key="delete"
-                                        variant="raised"
+                                        variant="contained"
                                         className="form__button"
                                         onClick={() => this.deleteField(i)}
                                     >
@@ -158,17 +159,16 @@ export default class AdminAbout extends React.Component {
                 {this.getContent()}
                 {!this.state.skillsLoading &&
                     <div className="admin-item__buttons">
-                        <Button
-                            variant="fab"
+                        <Fab
                             color="secondary"
                             type="button"
                             className="f-r"
                             onClick={() => this.addField()}
                         >
                             +
-                        </Button>
+                        </Fab>
                         <div className="admin-item__button cl-b">
-                            <Button variant="raised" color="primary" type="submit">Save</Button>
+                            <Button variant="contained" color="primary" type="submit">Save</Button>
                         </div>
                     </div>
                 }

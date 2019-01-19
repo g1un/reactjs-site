@@ -1,6 +1,6 @@
 import React from 'react';
 
-import Button from 'material-ui-next/Button';
+import Fab from '@material-ui/core/Fab';
 
 import ArrowDown from '../../svg/arrow-down.svg';
 import ArrowUp from '../../svg/arrow-up.svg';
@@ -19,18 +19,17 @@ export default class Arrows extends React.Component {
             <div className="arrows form__arrows">
                 {[ArrowUp, ArrowDown].map((item, i) => {
                     return(
-                        <Button
+                        <Fab
                             key={i}
                             data-direction={i === 0 ? 'up' : 'down'}
                             className="md-button arrows__item _arrow js-arrow-button"
-                            variant="fab"
-                            mini={this.props.mini}
+                            size={this.props.mini ? "small" : "medium"}
                             color="secondary"
                             disabled={this.isDisables(i)}
                             onClick={e => this.props.moveFields(e)}
                         >
                             {React.createElement(item)}
-                        </Button>
+                        </Fab>
                     )
                 })}
             </div>

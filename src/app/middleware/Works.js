@@ -8,7 +8,7 @@ export class GetWorks {
     send() {
         let xhr = new XMLHttpRequest();
         xhr.onload = () => this.onWorksGot(xhr);
-        xhr.open("get", `${HOST_NAME}/admin/works`, true);
+        xhr.open("get", `${HOST_NAME}/api/works`, true);
         xhr.setRequestHeader('Content-Type', 'application/json');
         xhr.send();
     }
@@ -16,12 +16,10 @@ export class GetWorks {
     onWorksGot(xhr) {
         let works = JSON.parse(xhr.responseText);
 
-        if(HOST_NAME) {
-            works = works.map((work) => {
-                work.imageSrc = HOST_NAME + '/' + work.imageSrc;
-                return work;
-            });
-        }
+        works = works.map((work) => {
+            work.imageSrc = HOST_NAME + '/' + work.imageSrc;
+            return work;
+        });
 
         this.onloadGet(works);
     }
@@ -37,7 +35,7 @@ export class UpdateWork {
         //@todo filter work from unnecessary properties
         let xhr = new XMLHttpRequest();
         xhr.onload = () => this.onWorksUpdated(xhr);
-        xhr.open("post", `${HOST_NAME}/admin/works`, true);
+        xhr.open("post", `${HOST_NAME}/api/works`, true);
         xhr.setRequestHeader('Authorization', `Bearer ${this.jwt}`);
 
         let formData = new FormData();
@@ -52,9 +50,7 @@ export class UpdateWork {
     onWorksUpdated(xhr) {
         let message = JSON.parse(xhr.responseText);
 
-        if(HOST_NAME) {
-            message.work.imageSrc = HOST_NAME + '/' + message.work.imageSrc;
-        }
+        message.work.imageSrc = HOST_NAME + '/' + message.work.imageSrc;
 
         this.onloadUpdate(message);
     }
@@ -69,7 +65,7 @@ export class DeleteWork {
     send(id) {
         let xhr = new XMLHttpRequest();
         xhr.onload = () => this.onWorksUpdated(xhr);
-        xhr.open("delete", `${HOST_NAME}/admin/works/${id}`, true);
+        xhr.open("delete", `${HOST_NAME}/api/works/${id}`, true);
         xhr.setRequestHeader('Authorization', `Bearer ${this.jwt}`);
         xhr.send();
     }
@@ -89,7 +85,7 @@ export class UpdateWorkIndex {
     send([prev, next]) {
         let xhr = new XMLHttpRequest();
         xhr.onload = () => this.onWorksUpdated(xhr);
-        xhr.open("post", `${HOST_NAME}/admin/works`, true);
+        xhr.open("post", `${HOST_NAME}/api/works`, true);
         xhr.setRequestHeader('Content-Type', 'application/json');
         xhr.setRequestHeader('Authorization', `Bearer ${this.jwt}`);
 

@@ -19,7 +19,7 @@ export default class CheckAuth {
     send() {
         let xhr = new XMLHttpRequest();
         xhr.onload = this.resListener.bind(this, xhr);
-        xhr.open("get", `${HOST_NAME}/admin`, true);
+        xhr.open("get", `${HOST_NAME}/api/admin`, true);
         xhr.setRequestHeader('Authorization', `Bearer ${this.jwt}`);
         xhr.send();
     }

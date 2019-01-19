@@ -3,7 +3,7 @@ import React from 'react';
 import AdminWork from './AdminWork';
 import { GetWorks, UpdateWork, DeleteWork, UpdateWorkIndex } from '../../middleware/Works';
 
-import Button from 'material-ui-next/Button';
+import Fab from '@material-ui/core/Fab';
 
 export default class AdminWorks extends React.Component {
     constructor() {
@@ -217,8 +217,7 @@ export default class AdminWorks extends React.Component {
                 {this.getContent()}
                 {!this.state.worksLoading &&
                 <div className="admin-item__buttons">
-                    <Button
-                        variant="fab"
+                    <Fab
                         color="secondary"
                         type="button"
                         className="f-r"
@@ -226,7 +225,7 @@ export default class AdminWorks extends React.Component {
                         disabled={this.getSavedWorksLength() < this.state.works.length}
                     >
                         +
-                    </Button>
+                    </Fab>
                 </div>
                 }
             </div>

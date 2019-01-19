@@ -36,14 +36,15 @@ let config = (env, argv) => {
         },
         module: {
             rules: [
-                {
-                    test: /\.js$/,
-                    include: SRC_DIR,
-                    loader: 'babel-loader',
-                    query: {
-                        presets: ['react', 'es2015']
-                    }
-                },
+				{
+					test: /\.js$/,
+					include: SRC_DIR,
+					loader: 'babel-loader',
+					query: {
+						presets: ['@babel/preset-env', '@babel/preset-react'],
+						plugins: ['@babel/plugin-proposal-class-properties']
+					}
+				},
                 {
                     test: /\.(scss|css)$/,
                     use: [

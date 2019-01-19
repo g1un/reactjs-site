@@ -6,7 +6,7 @@ import { NotFound } from '../../components/NotFound';
 
 import CheckAuth from '../../middleware/CheckAuth';
 
-import Button from 'material-ui-next/Button';
+import Button from '@material-ui/core/Button';
 
 import { ADMIN_PATHS, ADMIN_PAGES, ADMIN_COMPONENTS } from '../../constants';
 
@@ -49,7 +49,7 @@ export class Admin extends React.Component {
                         <div className="admin__buttons">
                             {ADMIN_PATHS.map((path, i) =>
                                 <Button
-                                    variant="raised"
+                                    variant="contained"
                                     color={this.state.activeButton === i ? 'primary' : 'default'}
                                     className="admin__btn"
                                     component={NavLink}

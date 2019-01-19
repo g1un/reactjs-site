@@ -7,7 +7,7 @@ import { CONTACTS_PARAMS } from '../constants';
 export class Contacts extends React.Component {
     constructor() {
         super();
-        this.route = 'contacts';
+        this.route = '/api/contacts';
         this.state = {
             data: {
                 email: '',

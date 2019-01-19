@@ -2,13 +2,13 @@ import React from 'react';
 
 import { getData, updateData } from '../../middleware/data';
 
-import Button from 'material-ui-next/Button';
-import TextField from 'material-ui-next/TextField';
+import Button from '@material-ui/core/Button';
+import TextField from '@material-ui/core/TextField';
 
 export default class AdminAbout extends React.Component {
     constructor(props) {
         super();
-        this.route = 'contacts';
+        this.route = '/api/contacts';
         this.dataTemplate = {
             email: '',
             tel: '',
@@ -118,7 +118,7 @@ export default class AdminAbout extends React.Component {
                 {!this.state.dataLoading &&
                 <div className="admin-item__buttons">
                     <div className="admin-item__button cl-b">
-                        <Button variant="raised" color="primary" type="submit">Save</Button>
+                        <Button variant="contained" color="primary" type="submit">Save</Button>
                     </div>
                 </div>
                 }

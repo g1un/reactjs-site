@@ -1,7 +1,7 @@
 import React from 'react';
 
-import Button from 'material-ui-next/Button';
-import TextField from 'material-ui-next/TextField';
+import Button from '@material-ui/core/Button';
+import TextField from '@material-ui/core/TextField';
 
 import Arrows from '../Arrows';
 
@@ -141,7 +141,7 @@ export default class AdminWork extends React.Component {
                             {this.props.data.status}
                         </div>
                         }
-                        <Button variant="raised" color="secondary" type="submit" disabled={!this.state.isChanged}>Save</Button>
+                        <Button variant="contained" color="secondary" type="submit" disabled={!this.state.isChanged}>Save</Button>
                     </div>
                 </div>
             </form>
