@@ -1,14 +1,14 @@
 import { About } from './components/About';
 import { Works } from './components/Works';
 import { Contacts } from './components/Contacts';
-import AdminSkills from './components/admin/AdminAbout';
-import AdminWorks from './components/admin/AdminWorks';
-import AdminContacts from './components/admin/AdminContacts';
+import AdminSkills from './components/Admin/AdminAbout';
+import AdminWorks from './components/Admin/AdminWorks';
+import AdminContacts from './components/Admin/AdminContacts';
 
 export const PATHS = ['/', '/works', '/contacts'];
-export const ADMIN_PATHS = ['/admin/skills', '/admin/works', '/admin/contacts'];
+export const ADMIN_PATHS = ['/admin', '/admin/skills', '/admin/works', '/admin/contacts'];
 
-export const ALL_PATHS = ['/admin'].concat(PATHS, ADMIN_PATHS);
+export const ALL_PATHS = [].concat(PATHS, ADMIN_PATHS);
 
 export const PAGES = {
     'About': 'Обо мне',
@@ -66,6 +66,51 @@ export const _PAGES = {
         },
         path: '/admin/contacts'
     }
+};
+
+export const __PAGES = {
+	"/": {
+		title: {
+			en: 'About',
+			ru: 'Обо мне'
+		}
+	},
+	"/works": {
+		title: {
+			en: 'Works',
+			ru: 'Работы'
+		}
+	},
+	"/contacts": {
+		title: {
+			en: 'Contacts',
+			ru: 'Контакты'
+		}
+	},
+	"/admin": {
+		title: {
+			en: 'Admin',
+			ru: 'Админка'
+		}
+	},
+	"/admin/skills": {
+		title: {
+			en: 'Admin - Skills',
+			ru: 'Админка - Обо мне'
+		}
+	},
+	"/admin/works": {
+		title: {
+			en: 'Admin - Works',
+			ru: 'Админка - Работы'
+		}
+	},
+	"/admin/contacts": {
+		title: {
+			en: 'Admin - Contacts',
+			ru: 'Админка - Контакты'
+		}
+	}
 };
 
 export const _PAGES_ARR = Object.keys(_PAGES);

@@ -1,45 +1,29 @@
-import React from 'react';
-import { render } from "react-dom";
-import DocumentTitle from 'react-document-title';
+import React, {Component} from "react";
+import {render} from "react-dom";
 
-import DocTitle from '../middleware/docTitle';
+import "../../scss/style.scss";
 
-import '../../scss/style.scss';
+import Admin from "src/app/components/Admin/Admin";
+import Header from "src/app/components/Header/Header";
+import HeaderItem from "src/app/components/HeaderItem/HeaderItem";
 
-import { Admin } from '../components/admin/Admin';
-import { Header } from '../components/Header';
-import { HeaderItem } from '../components/HeaderItem';
-
-class AdminIndex extends React.Component {
+class AdminIndex extends Component {
     constructor() {
         super();
-        this.state = {
-            documentTitle: DocTitle.get()
-        }
-    }
-
-    updateDocumentTitle() {
-        this.setState({
-            documentTitle: DocTitle.get()
-        });
     }
 
     render() {
         return (
-            <DocumentTitle title={this.state.documentTitle}>
                 <div className="container">
                     <Header>
                         <HeaderItem
                             routePath="/admin"
                             pageTitle="Admin"
-                            updateDocumentTitle={() => {}}
-
                         >
-                            <Admin updateDocTitle={() => this.updateDocumentTitle()}/>
+                            <Admin/>
                         </HeaderItem>
                     </Header>
                 </div>
-            </DocumentTitle>
         );
     }
 }

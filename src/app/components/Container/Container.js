@@ -1,7 +1,8 @@
 import React, {Component} from "react";
+import {withRouter} from "react-router-dom";
 import {connect} from 'react-redux';
 
-import AppMetaTags from 'src/components/AppMetaTags/AppMetaTags';
+import AppMetaTags from 'src/app/components/AppMetaTags/AppMetaTags';
 
 class Container extends Component {
 	constructor(props) {
@@ -32,4 +33,4 @@ export default connect(
 			dispatch({type: 'PAGE_PATH', payload: path})
 		}
 	})
-)(Container);
+)(withRouter(Container));

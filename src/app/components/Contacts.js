@@ -1,10 +1,11 @@
 import React from 'react';
+import {withRouter} from "react-router-dom";
 
 import { getData } from '../middleware/data';
 
 import { CONTACTS_PARAMS } from '../constants';
 
-export class Contacts extends React.Component {
+class _Contacts extends React.Component {
     constructor() {
         super();
         this.route = '/api/contacts';
@@ -69,6 +70,7 @@ export class Contacts extends React.Component {
     }
 
     render() {
+        // console.log('oldcontacts', this.props.location);
         return (
             <div className="contacts">
                 <h1>
@@ -81,3 +83,7 @@ export class Contacts extends React.Component {
         );
     }
 }
+
+let Contacts = withRouter(_Contacts);
+
+export {Contacts};

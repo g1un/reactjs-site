@@ -1,28 +1,26 @@
 import { PAGES } from '../constants';
 
 export default class Lang {
-    constructor() {
-        this.lang = this.getLang();
-    }
+    static getBrowserLang() {
+		let browserLang = navigator.language || navigator.userLanguage;
+		if(/^ru/.test(browserLang)) {
+		    return "ru";
+        } else {
+		    return "en";
+        }
+	}
 
     static getLang() {
-        this.lang = localStorage.getItem('lang');
-        if(this.lang) {
-            return this.lang;
+        let lang = localStorage.getItem("lang");
+        if(lang) {
+            return lang;
         } else {
-            this.getHtmlLang();
+            return this.getBrowserLang();
         }
     }
 
-    static getHtmlLang() {
-        this.lang = document.documentElement.lang;
-        this.langToLocalStorage();
-
-        return this.lang;
-    }
-
-    static langToLocalStorage() {
-        localStorage.setItem('lang', this.lang);
+    static langToLocalStorage(lang) {
+        localStorage.setItem('lang', lang || this.lang);
     }
 
     static toggleLang() {

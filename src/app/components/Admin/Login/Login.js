@@ -3,9 +3,9 @@ import React from 'react';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 
-import {HOST_NAME} from '../../constants';
+import {HOST_NAME} from '../../../constants';
 
-export default class Signup extends React.Component {
+class Signup extends React.Component {
 	constructor(props) {
 		super();
 		this.state = {
@@ -103,3 +103,5 @@ export default class Signup extends React.Component {
 		);
 	}
 }
+
+export default Signup;

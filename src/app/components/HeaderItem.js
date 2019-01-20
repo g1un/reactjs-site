@@ -1,69 +1,46 @@
 import React from 'react';
-import { NavLink } from 'react-router-dom';
+import { withRouter, NavLink } from 'react-router-dom';
+import {connect} from "react-redux";
 
 import { Content } from './Content';
 
-import { COMPONENTS } from './../constants';
+import { COMPONENTS, __PAGES, PATHS } from './../constants';
 
-export class HeaderItem extends React.Component {
+class HeaderItem extends React.Component {
     constructor(props) {
         super();
-        this.path = props.routePath;
-        this.content = props.children;
-        this.components = COMPONENTS;
-        this.updateDocumentTitle = props.updateDocumentTitle;
-
-        this.state = {
-            isActive: this.path === window.location.pathname,
-            lang: props.lang
-        };
     }
 
-    componentDidUpdate() {
-        //to change page title if this component is active
-        if(this.path === window.location.pathname) {
-            this.updateDocumentTitle();
-        }
-        this.saveRouteComponent();
-    }
-
-    isActive() {
-        return this.path === window.location.pathname;
-    }
-
-    saveRouteComponent() {
-        if(this.state.isActive || this.path !== window.location.pathname) return;
-        //once opened route get 'isActive' state and its content will not removed when this route is deactivated
-        this.setState({ isActive: true });
+    isActive(path) {
+        return path === window.location.pathname;
     }
 
     render() {
+		const {
+			index
+		} = this.props;
+		const path = PATHS[index];
+		const title = __PAGES[path].title["en"];
         return (
             this.props.pageTitle !== 'Admin'
                 ?
-                <div className={"nav__item " + (this.isActive() ? "_active" : "")}>
+                <div className={"nav__item " + (this.isActive(path) ? "_active" : "")}>
                     <div className="nav__item-wrapper">
-                        <NavLink className="nav__link" exact activeClassName="_active" to={this.path}>
-                            {this.props.pageTitle}
+                        <NavLink className="nav__link" exact activeClassName="_active" to={path}>
+                            {title}
                         </NavLink>
                     </div>
-                    {(this.isActive() || this.state.isActive) &&
+                    {(this.isActive(path)) &&
                     <div className="nav__content">
-                        <Content pageTitle={this.props.pageTitle}>
-                            {
-                                this.state.isActive
-                                ?
-                                React.createElement(
-                                    this.components[this.props.index],
-                                    {
-                                        isActive: this.state.isActive,
-                                        lang: this.props.lang,
-                                        pageTitle: this.props.pageTitle
-                                    }
-                                )
-                                :
-                                this.content
-                            }
+                        <Content pageTitle={title}>
+                            {React.createElement(
+								COMPONENTS[this.props.index],
+								{
+									isActive: false,
+									lang: "en",
+									pageTitle: this.props.pageTitle
+								}
+							)}
                         </Content>
                     </div>
                     }
@@ -82,3 +59,21 @@ export class HeaderItem extends React.Component {
         );
     }
 }
+
+// export default HeaderItem;
+
+export default withRouter(
+	connect(
+		state => ({
+			appStore: state
+		}),
+		dispatch => ({
+			setPagePath: (path) => {
+				dispatch({type: "PAGE_PATH", payload: path})
+			},
+			setPageTitle: (title) => {
+				dispatch({type: "PAGE_TITLE", payload: title})
+			}
+		})
+	)(HeaderItem)
+);

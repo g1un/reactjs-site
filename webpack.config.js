@@ -17,23 +17,30 @@ let config = (env, argv) => {
             template: SRC_DIR + '/index.html',
             inject: false
         }),
-        new HtmlWebpackPlugin({
-            filename: 'admin/index.html',
-            template: SRC_DIR + '/admin/index.html',
-            inject: false
-        })
+        // new HtmlWebpackPlugin({
+        //     filename: 'admin/index.html',
+        //     template: SRC_DIR + '/admin/index.html',
+        //     inject: false
+        // })
     ];
 
     return {
         entry: {
             app: SRC_DIR + '/app/index.js',
-            admin: SRC_DIR + '/app/admin/index.js'
+            // admin: SRC_DIR + '/app/admin/index.js'
         },
         output: {
             path: DIST_DIR,
             filename: '[name].js',
             publicPath: ''
         },
+		resolve: {
+			modules: [
+				'node_modules',
+				'.',
+				'src',
+			]
+		},
         module: {
             rules: [
 				{
@@ -95,7 +102,7 @@ let config = (env, argv) => {
             historyApiFallback: {
                 rewrites: [
                     { from: /^\/$/, to: '/' },
-                    { from: /^\/admin\//, to: '/admin' }
+                    // { from: /^\/admin\//, to: '/admin' }
                 ]
             },
             disableHostCheck: true,
