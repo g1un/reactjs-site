@@ -19,7 +19,8 @@ class LangComponent extends React.Component {
 
         return(
             <Button
-                size="small"
+				color="primary"
+				size="small"
                 className="lang"
                 onClick={() => this.setLang(lang)}
             >
