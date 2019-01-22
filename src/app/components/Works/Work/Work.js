@@ -34,7 +34,13 @@ class Work extends Component {
                     <img src={this.props.data.imageSrc} alt=""/>
                 </div>
                 <p className="work__desc">
-                    {this.getDesc(lang)}
+					{this.getDesc(lang).split('\n').map((line, i) => {
+						return (
+							<React.Fragment key={i}>
+								{line}<br/>
+							</React.Fragment>
+						);
+					})}
                 </p>
             </div>
         );

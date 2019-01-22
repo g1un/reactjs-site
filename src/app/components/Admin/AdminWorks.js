@@ -33,11 +33,29 @@ export default class AdminWorks extends React.Component {
 
     onWorksGot(works) {
         let _works = works.length ? works : this.state.works;
-        _works.sort((a, b) => a.index - b.index);
+
+        //filter works from db special properties
+        let filterArr = Object.keys(this.emptyWork);
+        let filteredWorks = [];
+        _works.forEach((work) => {
+            let workKeys = Object.keys(work);
+            let newWork = {};
+
+			workKeys.forEach((key) => {
+			    if(filterArr.indexOf(key) !== -1) {
+			        newWork[key] = work[key];
+                }
+            });
+
+			filteredWorks.push(newWork);
+        });
+
+		filteredWorks.sort((a, b) => a.index - b.index);
+
         this.setState({
-            works: _works,
+            works: filteredWorks,
             worksLoading: false,
-            worksIndexes: this.getWorksIndexes(_works)
+            worksIndexes: this.getWorksIndexes(filteredWorks)
         });
     }
 
