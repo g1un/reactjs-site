@@ -20,7 +20,7 @@ export default class AdminWorks extends React.Component {
         };
         this.state = {
             works: [
-                Object.assign({}, this.emptyWork)
+				{...this.emptyWork}
             ],
             worksLoading: true
         };

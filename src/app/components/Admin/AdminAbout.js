@@ -1,12 +1,12 @@
-import React from 'react';
+import React from "react";
 
-import { getSkills, updateSkills } from '../../middleware/Skills';
+import {getSkills, updateSkills} from "src/app/middleware/Skills";
 
-import Button from '@material-ui/core/Button';
-import Fab from '@material-ui/core/Fab';
-import TextField from '@material-ui/core/TextField';
+import Button from "@material-ui/core/Button";
+import Fab from "@material-ui/core/Fab";
+import TextField from "@material-ui/core/TextField";
 
-import Arrows from '../Arrows';
+import Arrows from "src/app/components/Arrows";
 
 export default class AdminAbout extends React.Component {
     constructor(props) {

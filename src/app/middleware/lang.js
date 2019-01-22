@@ -1,6 +1,4 @@
-import { PAGES } from '../constants';
-
-export default class Lang {
+class Lang {
     static getBrowserLang() {
 		let browserLang = navigator.language || navigator.userLanguage;
 		if(/^ru/.test(browserLang)) {
@@ -28,14 +26,6 @@ export default class Lang {
 
         this.langToLocalStorage();
     }
-
-    static getPages() {
-        let enArr = Object.keys(PAGES);
-
-        if(this.lang === 'ru') {
-            return enArr.map((item) => PAGES[item]);
-        } else {
-            return enArr;
-        }
-    }
 }
+
+export default Lang;

@@ -1,16 +1,16 @@
-import React from 'react';
+import React from "react";
 
-import Button from '@material-ui/core/Button';
-import TextField from '@material-ui/core/TextField';
+import Button from "@material-ui/core/Button";
+import TextField from "@material-ui/core/TextField";
 
-import {HOST_NAME} from '../../../constants';
+import {HOST_NAME} from "src/app/consts";
 
 class Signup extends React.Component {
 	constructor(props) {
 		super();
 		this.state = {
-			email: '',
-			password: '',
+			email: "",
+			password: "",
 			error: false
 		};
 		this.authorization = props.authorization;

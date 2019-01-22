@@ -1,6 +1,5 @@
 import React from "react";
 import {render} from "react-dom";
-import {BrowserRouter as Router} from "react-router-dom";
 import {Provider} from "react-redux";
 import {createStore} from "redux";
 
@@ -8,7 +7,7 @@ import Lang from "src/app/middleware/lang";
 
 import "src/scss/style.scss";
 
-import Main from "src/app/components/Main";
+import Site from "src/app/components/Site/Site";
 
 function reducer(state = {
     pagePath: window.location.pathname,
@@ -43,9 +42,7 @@ class App extends React.Component {
     render() {
         return (
             <Provider store={store}>
-                <Router>
-                    <Main/>
-                </Router>
+				<Site/>
             </Provider>
         );
     }

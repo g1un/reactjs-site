@@ -80,7 +80,13 @@ let config = (env, argv) => {
                 {
                     test: /\.svg$/,
                     use: [
-                        "babel-loader",
+                        {
+							loader: 'babel-loader',
+							query: {
+								presets: ['@babel/preset-env', '@babel/preset-react'],
+								plugins: ['@babel/plugin-proposal-class-properties']
+							}
+                        },
                         {
                             loader: "react-svg-loader",
                             options: {

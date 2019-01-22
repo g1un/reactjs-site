@@ -10,9 +10,24 @@ class HeaderItem extends Component {
     constructor(props) {
         super();
         this.pageIsLoaded = false;
+        this.pageIsActive = false;
     }
 
-	pageIsActive(path) {
+	componentDidUpdate() {
+    	const {
+    		setPageTitle
+		} = this.props;
+
+    	const {
+    		pageTitle
+		} = this.props.appStore;
+
+		if(this.pageIsActive && (this.title !== pageTitle)) {
+			setPageTitle(this.title);
+		}
+	}
+
+	ifPageIsActive(path) {
     	let pagePath = this.props.location.pathname;
     	if(pagePath !== "/") {
 			pagePath = pagePath.replace(/\/$/, "");
@@ -38,16 +53,14 @@ class HeaderItem extends Component {
             lang
         } = this.props.appStore;
 
-        let pages = !isAdminPages ? PAGES : ADMIN_PAGES;
-
-        const title = pages[path].title[lang];
-
-        const pageIsActive = this.pageIsActive(path);
+        this.pages = !isAdminPages ? PAGES : ADMIN_PAGES;
+        this.title = this.pages[path].title[lang];
+        this.pageIsActive = this.ifPageIsActive(path);
 
         return (
 			!isAdminPages
                 ?
-                <div className={`nav__item ${pageIsActive ? "_active" : ""}`}>
+                <div className={`nav__item ${this.pageIsActive ? "_active" : ""}`}>
                     <div className="nav__item-wrapper">
                         <NavLink
                             className="nav__link"
@@ -55,12 +68,12 @@ class HeaderItem extends Component {
                             activeClassName="_active"
                             to={path}
                         >
-                            {title}
+                            {this.title}
                         </NavLink>
                     </div>
-					{(pageIsActive || this.pageIsLoaded) &&
+					{(this.pageIsActive || this.pageIsLoaded) &&
                         <div className="nav__content">
-                            <Content pageTitle={title}>
+                            <Content pageTitle={this.title}>
 								{React.createElement(COMPONENTS[index], {path: path})}
                             </Content>
                         </div>
@@ -70,7 +83,7 @@ class HeaderItem extends Component {
                 <div className="nav__item _active">
                     <div className="nav__item-wrapper">
                         <div className="nav__link _active">
-                            {title}
+                            {this.title}
                         </div>
                     </div>
                     <div className="nav__content">
@@ -85,5 +98,10 @@ export default withRouter(
 	connect(
 		state => ({
 			appStore: state
+		}),
+		dispatch => ({
+			setPageTitle: (title) => {
+				dispatch({type: 'PAGE_TITLE', payload: title})
+			}
 		})
 )(HeaderItem));

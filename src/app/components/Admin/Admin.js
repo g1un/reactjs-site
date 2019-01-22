@@ -5,7 +5,7 @@ import {connect} from "react-redux";
 import Login from "src/app/components/Admin/Login/Login";
 import HeaderItem from "src/app/components/HeaderItem/HeaderItem";
 
-import CheckAuth from "../../middleware/CheckAuth";
+import CheckAuth from "src/app/middleware/CheckAuth";
 
 import Button from "@material-ui/core/Button";
 

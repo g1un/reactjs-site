@@ -7,7 +7,7 @@ import Admin from "src/app/components/Admin/Admin";
 
 import {PATHS, ADMIN_PATHS} from "src/app/consts";
 
-class Main1 extends Component {
+class Main extends Component {
 	constructor() {
 		super();
 	}
@@ -47,4 +47,4 @@ export default withRouter(
 		state => ({
 			appStore: state
 		})
-)(Main1));
+)(Main));

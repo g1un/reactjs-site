@@ -22,7 +22,7 @@ class Works extends Component {
         };
         this.state = {
             works: [
-                Object.assign({}, this.emptyWork)
+				{...this.emptyWork}
             ],
             worksIsLoaded: false
         };

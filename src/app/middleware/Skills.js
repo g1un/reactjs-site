@@ -1,4 +1,4 @@
-import { HOST_NAME } from '../constants';
+import {HOST_NAME} from "src/app/consts";
 
 export class getSkills {
     constructor(get) {
